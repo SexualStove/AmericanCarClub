@@ -2,7 +2,15 @@
   <div id="SplashZone">
 
     <div id="BlueStripe">
+      <div id="stars">
+        <div style="display: inline-block" v-for="i in 16" :key="i">
+          <i class="star"></i>
+          <div style="height: 5vh" v-if="i === 8"></div>
+        </div>
 
+
+
+      </div>
       <h1 id="LogoTop">
         American Classics Car Club
       </h1>
@@ -47,19 +55,19 @@
         mounted() {
             $('#AboutUs').click(function() {
                 EventBus.$emit('Page', 1);
-                this.ServiceClick();
+               // this.ServiceClick();
             });
             $('#ContactUs').click(function() {
                 EventBus.$emit('Page', 2);
-                this.ServiceClick();
+                //this.ServiceClick();
             });
             $('#Events').click(function() {
                 EventBus.$emit('Page', 3);
-                this.ServiceClick();
+                //this.ServiceClick();
             });
             $('#Gallery').click(function() {
                 EventBus.$emit('Page', 4);
-                this.ServiceClick();
+                //this.ServiceClick();
             });
 
             var LogoStringTimeline = new TimelineMax({});
@@ -88,7 +96,7 @@
   #Line {
     height: 1px;
     width: 80%;
-    background-color: white;
+    background-color: goldenrod;
     transform: translateY(34vh);
     margin-left: 10%;
     justify-self: center;
@@ -96,7 +104,7 @@
 
   #LogoTop {
     font-family: 'Cinzel', serif;
-    color: #FFFFFF;
+    color: goldenrod;
     font-size: 3vw;
     opacity: 0;
   }
@@ -125,14 +133,52 @@
     height: 100%;
   }
   #NavArea {
-    color: white;
+    color: goldenrod;
     transform: translateY(34vh);
     font-size: 1.5vw;
     font-weight: 300;
+
     font-family: 'Roboto', sans-serif;
   }
   .NavItem:hover {
     cursor: pointer;
   }
 
+  .star {
+    position: relative;
+    display: inline-block;
+    width: 0;
+    height: 0;
+    margin: 5vw 5vw 5vw 5vw;
+    border-right: 0.3em solid transparent;
+    border-bottom: 0.7em solid white;
+    border-left: 0.3em solid transparent;
+    /* Controlls the size of the stars. */
+    font-size: 3vw;
+    opacity: 0.9;
+    transform: translateY(-4vw);
+  }
+  .star:before, .star:after {
+    content: '';
+    display: block;
+    width: 0;
+    height: 0;
+    position: absolute;
+    top: 0.6em;
+    left: -1em;
+    border-right: 1em solid transparent;
+    border-bottom: 0.7em solid white;
+    border-left: 1em solid transparent;
+    transform: rotate(-35deg);
+  }
+  .star:after {
+    transform: rotate(35deg);
+  }
+
+  #stars {
+    position: absolute;
+    width: 50%;
+    height: 100vh;
+    overflow: hidden;
+  }
 </style>

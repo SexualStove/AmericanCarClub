@@ -13,6 +13,12 @@ module.exports = (sequelize, DataTypes) =>{
         Title:{
             type: DataTypes.STRING
         },
+        When: {
+          type: DataTypes.STRING
+        },
+        Where: {
+          type: DataTypes.STRING
+        },
         Thumbnail: {
             type: DataTypes.STRING
         },

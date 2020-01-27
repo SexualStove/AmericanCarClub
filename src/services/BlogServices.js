@@ -10,9 +10,20 @@ export default {
     getAll (){
         return Api().get('/blog')
     },
-    CreateGallery (data) {
+
+    createGallery (data) {
+        console.log("what");
         return Api().post('/createGallery', data)
-    }
+    },
+    createImageTable (data) {
+      return Api().post('/createImage', data)
+    },
+    getAllGallery (){
+        return Api().get('/Gallery')
+    },
+    getImageTables (){
+        return Api().get('/ImageTable')
+    },
     // uploadThumbnail (file){
     //     return Api().post('/create', file)
     // }

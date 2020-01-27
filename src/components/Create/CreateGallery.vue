@@ -1,105 +1,93 @@
 <template>
   <div class="wrapper" style="padding: 20px;">
-    <div v-if="correct">
+    <div >
 
-        <button class="get-html" v-on:click="getHTML"> Save to Blogsite! </button>
+      <button style="padding: 1vw" class="get-html" v-on:click="getHTML"> Save to Gallery! </button>
 
           <br>
           <div style="position: relative; width: 75%; margin-left: auto; margin-right: auto">
-             <div id="Title" contenteditable="true" style="margin-top: 10px;"> Title </div>
-        <form id="uploadbanner" enctype="multipart/form-data" style="margin-top: 10px;">
-            <label>Thumbnail</label><input id="thumbnail" ref="file" name="myfile" type="file" required @change="onFileChange" accept="image/*"/>
-          </form>
+            <h1 style="margin-top: 5vw"> Icon And Title</h1>
+             <div id="Title" contenteditable="true" style="margin-top: 10px;"> TITLE (Click here) </div>
+              <form id="uploadbanner" enctype="multipart/form-data" style="margin-top: 10px;">
+                <label>Thumbnail </label><input id="thumbnail" ref="Thumbnail" name="myfile" type="file" required @change="onFileChange" accept="image/*"/>
+              </form>
+
+            <h1 style="margin-top: 5vw"> Adding images to the gallery</h1>
+            <div>
+              <form v-for="i in TotalPictures" :key="i" class="uploadbanner" enctype="multipart/form-data" style="margin-top: 10px;">
+                <label>Image </label><input class="image" ref="file" name="myfile" type="file" required @change="onFileChangeImages" accept="image/*"/>
+                <label>Image </label><input class="image" ref="file" name="myfile" type="file" required @change="onFileChangeImages" accept="image/*"/>
+                <label>Image </label><input class="image" ref="file" name="myfile" type="file" required @change="onFileChangeImages" accept="image/*"/>
+              </form>
+              <button id="MorePics" v-on:click="MorePictures">More Pictures!</button>
+            </div>
+
           </div>
 
     </div>
-      <div v-else>
-          <label>Please Enter the Password
-          <input id="password">
-              <button v-on:click="checkPass">Submit Password</button>
-      </label>
-      </div>
   </div>
 </template>
 
 <script>
-  import BlogController from '@/services/BlogServices'
-  // import JQuery from 'jquery'
+  import GalleryController from '@/services/BlogServices'
 
+  // import JQuery from 'jquery'
+// <button class="get-html" v-on:click="getHTML"> Save to Blogsite! </button>
 
   export default {
     name: 'HelloWorld',
       data() {
       return {
-          selected: "Font",
-        userInput: '',
           correct: true,
-          ModalButtonSize: 0,
-          ModalButtons: [{'Question': 'TestingStuff'}],
         password: "1234",
         Title: '',
         thumbnail:'',
-
+          blogs: undefined,
+          CurrentGalleryId: 0,
+          dataImages: [],
+          TotalPictures: 1,
       }
 
     },
     mounted() {
-        // Get the modal
-        var modal = document.getElementById("myModal");
-
-// Get the button that opens the modal
-        var btn = document.getElementById("myBtn");
-
-// Get the <span> element that closes the modal
-        var span = document.getElementsByClassName("close")[0];
-
-// When the user clicks the button, open the modal
-        btn.onclick = function() {
-            modal.style.display = "block";
-        },
-
-// When the user clicks on <span> (x), close the modal
-        span.onclick = function() {
-            modal.style.display = "none";
-        },
-
-// When the user clicks anywhere outside of the modal, close it
-        window.onclick = function(event) {
-            if (event.target == modal) {
-                document.getElementById("myModal").style.display = "none";
-
-            }
-        }
-
-
     },
 
+    beforeMount() {
+        this.getBlogs()
+    },
     methods: {
 
+        MorePictures() {
+            this.TotalPictures += 1;
+        },
+
+        async getBlogs() {
+            try {
+                const blogs = await GalleryController.getAllGallery();
+
+                this.blogs = blogs.data.Galleries;
+                if(this.blogs.length  === 0) {
+                    this.CurrentGalleryId = 1;
+                } else {
+                    this.CurrentGalleryId = this.blogs.reverse()[0].id + 1;
+                }
+
+
+            } catch (e) {
+                console.log(e);
+                this.myUrl = e;
+            }
+        },
 
       sendHtml: function () {
         this.userInput = document.getElementById('userInput').value;
         var outputSection = document.getElementById('output');
         outputSection.innerHTML = this.userInput;
       },
-      doCommand: function (command) {
-        if(command.Modal === undefined) {
-          var val = (typeof command.val !== "undefined") ? prompt("Value for " + command.cmd + "?", command.val) : "";
-          document.execCommand(command.cmd, false, (val || ""));
-        } else {
-            this.ModalButtons = command;
-            this.PopUp();
-        }
 
-      },
-        CommandFromModal(command) {
-            document.execCommand(command.cmd, false, (command.Text || ""));
-        },
+      async onFileChange(e){
 
-      async onFileChange(){
-
-        var blobData =  this.$refs.file.files[0];
-        // let blob = new Blob([blobData],{type: 'image/*'});
+        var blobData =  e.target.files[0];
 
         function readFile(file, onloadCallback) {
           var reader = new FileReader();
@@ -111,32 +99,60 @@
           self.data = e.target.result;
 
         });
-
-
       },
 
-        async getHTML() {
-          try {
+          async onFileChangeImages(e){
 
-            this.Title = document.getElementById('Title').innerText;
+            var blobData =  e.target.files[0];
+            this.dataImages.push(blobData);
 
-            const response = await BlogController.createGallery({
-              Title: this.Title,
-              Image: self.data
+        },
+        async ReadImage(blobData) {
 
+            function readFile(file, onloadCallback) {
+                var reader = new FileReader();
+                reader.onload = onloadCallback;
+                reader.readAsDataURL(file)
+            }
+            self.GalleryId = this.CurrentGalleryId;
+            self.ImageData = '';
+            readFile(blobData, function(e){
+                self.ImageData = e.target.result;
+                console.log('Pushing now');
+                console.log(self.GalleryId);
+                GalleryController.createImageTable({
+                    GalleryLink: self.GalleryId,
+                    Image: e.target.result
+                });
             });
-            console.log(response.Date);
-            //Clear Fields after saving to database
+        },
 
-          } catch (err) {
-            this.error = err;
-            console.log(this.error)
+      async getHTML() {
+        try {
+
+          this.Title = document.getElementById('Title').innerText;
+
+          console.log("Pushing Gallery");
+          const response = await GalleryController.createGallery({
+            Title: this.Title,
+            Image: self.data
+          });
+            console.log(response.Date);
+          let i = 0;
+          for(i=0; i < this.dataImages.length; i++) {
+              await this.ReadImage(this.dataImages[i]);
           }
 
 
+        } catch (err) {
+          this.error = err;
+          console.log(this.error)
+        }
 
-      }
-    },
+
+
+    }
+  },
 
   }
 
@@ -252,5 +268,9 @@
       color: #000;
       text-decoration: none;
       cursor: pointer;
+  }
+  #MorePics {
+    margin-top: 5vw;
+    padding: 0.5vw;
   }
 </style>

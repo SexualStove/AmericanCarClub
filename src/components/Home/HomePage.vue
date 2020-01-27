@@ -6,10 +6,13 @@
     </transition>
     <div id="Content">
       <transition name="slide-fade-right" v-bind:key="CurrentPage">
-        <AboutUs v-if="CurrentPage === 1" style="margin-top: 14%"></AboutUs>
+        <AboutUs v-if="CurrentPage === 1" style="margin-top: 6%"></AboutUs>
       </transition>
       <transition name="slide-fade-right" v-bind:key="CurrentPage">
-        <Events v-if="CurrentPage === 3" style="margin-top: 14%"></Events>
+        <Events v-if="CurrentPage === 3" style="margin-top: 6%"></Events>
+      </transition>
+      <transition name="slide-fade-right" v-bind:key="CurrentPage">
+        <AllGalleries v-if="CurrentPage === 4"></AllGalleries>
       </transition>
     </div>
 
@@ -19,6 +22,7 @@
 <script>
     import HomePageSplashScreen from "./HomePageSplashScreen";
     import AboutUs from "../About/AboutUs";
+    import AllGalleries from '../Gallery/AllGalleries'
     //import EventsPage from "../Events/EventsPage";
     import {EventBus} from "../../App";
 
@@ -28,7 +32,7 @@
     //style="background: linear-gradient(to left,#A4B0F5, #FFFCF2); width: 100vw"
     export default {
         name: "HomePage",
-        components: {Events, AboutUs, HomePageSplashScreen},
+        components: {Events, AboutUs, HomePageSplashScreen, AllGalleries},
         data() {
             return {
                 CurrentPage: 0,
@@ -58,9 +62,11 @@
 #Divider {
   position: absolute;
   width: 100vw;
-  transform: translate(-49.65vw, -11.8vh);
+  transform: translate(-49.65vw, 0);
   overflow-x: hidden;
   max-width: 100%;
+  background-color: #BBCBCB;
+  z-index: -1;
 }
 .fade-enter-active, .fade-leave-active {
   transition: opacity 0.5s ease;

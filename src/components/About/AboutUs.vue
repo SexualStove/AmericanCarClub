@@ -19,8 +19,24 @@
 </template>
 
 <script>
+
+
     export default {
-        name: "AboutUs"
+
+        data() {
+            return {
+            }
+        },
+        methods: {
+
+        },
+
+        computed: {
+
+        },
+        mounted() {
+
+        }
     }
 </script>
 
@@ -29,20 +45,31 @@
 
       font-family: 'Cinzel', serif;
       font-size: 2.5vw;
-    margin: 0% 15% 3% 1%;
+    margin: 0% 5% 3% 1%;
 
   }
 
 #AboutUsPage {
-  height: 80vh;
+  height: 200vh;
   width: 100vw;
   text-align: left;
+  background-color: #BBCBCB;
 
 }
   #AboutUsContent {
     font-size: 1.2vw;
     font-weight: 300;
-    margin: 3% 10% 3% 1%;
+    margin: 0% 10% 3% 1%;
     font-family: 'Roboto', sans-serif;
+  }
+  .Thumbnail {
+    width: 50vw;
+  }
+  .ImageGallery {
+    display: inline-block;
+    width: 10vw;
+  }
+  .GalleryImages {
+    display: inline-block;
   }
 </style>

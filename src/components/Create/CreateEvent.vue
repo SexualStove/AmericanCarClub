@@ -66,6 +66,8 @@
               <div id="blurb" contenteditable="true" style="margin-top: 10px;"> Blurb</div>
               <div id="content" contenteditable="true" style="margin-top: 10px;">Content</div>
               <div id="author" contenteditable="true" style="margin-top: 10px;"> Author</div>
+            <div id="When" contenteditable="true" style="margin-top: 10px;"> When</div>
+            <div id="Where" contenteditable="true" style="margin-top: 10px;"> Where</div>
         <form id="uploadbanner" enctype="multipart/form-data" style="margin-top: 10px;">
             <label>Thumbnail</label><input id="thumbnail" ref="file" name="myfile" type="file" required @change="onFileChange" accept="image/*"/>
         </form>
@@ -281,6 +283,8 @@
         Link: '',
         Author: '',
         Date: '',
+        When: '',
+        Where: '',
         thumbnail:''
 
       }
@@ -411,6 +415,8 @@
             this.Content = document.getElementById('content').innerHTML;
             this.Blurb = document.getElementById('blurb').innerText;
             this.Author = document.getElementById('author').innerText;
+            this.When = document.getElementById('When').innerText;
+            this.Where = document.getElementById('Where').innerText;
             this.Date = new Date().toJSON().slice(0, 10).replace(/-/g, '/');
 
             const response = await BlogController.createBlog({
@@ -419,6 +425,8 @@
               Blurb: this.Blurb,
               Author: this.Author,
               Date: this.Date,
+              When: this.When,
+              Where: this.Where,
               Thumbnail: self.data
 
             });

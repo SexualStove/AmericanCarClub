@@ -6,25 +6,29 @@
         </div>
         <div>
 
-        <div style="transition: 1s" v-for="blog in this.ShownBlogs" v-bind:key="blog.thumbnail" >
+        <div v-on:click="ClickBlog(blog)" style="transition: 1s" v-for="blog in this.ShownBlogs" v-bind:key="blog.thumbnail" >
             <transition name="BlogLoad" :key="blog.thumbnail">
-            <div style="transition: 1s" class="BlogPost" v-if="blog.Type < TotalBlogSize">
-
-                <img class="Thumbnail" v-bind:src="blog.Thumbnail" alt="../assets/images/BrokenImage.png">
-                <div class="BlogContent">
-                    <div class="AuthorDate">
-                        <h3 class="BlogAuthor">By: {{blog.Author}}</h3>
-                        <h3 class="BlogAuthor">{{blog.Date}}</h3>
+                <div style="transition: 1s" class="BlogPost" v-if="blog.Type < TotalBlogSize">
+                    <img class="Thumbnail" v-bind:src="blog.Thumbnail" alt="../assets/images/BrokenImage.png">
+                    <div class="BlogContent">
+                        <div class="AuthorDate">
+                            <h3 class="BlogAuthor">By: {{blog.Author}}</h3>
+                            <h3 class="BlogAuthor">{{blog.Date}}</h3>
+                        </div>
+                        <router-link tag="div" v-bind:to="'/Blog/'+blog.id">
+                            <h1 class="BlogTitle">{{blog.Title}} </h1>
+                        </router-link>
+                        <h2 class="BlogBlurb">{{blog.Blurb}}</h2>
                     </div>
-                    <router-link tag="div" v-bind:to="'/Blog/'+blog.id">
-                        <h1 class="BlogTitle">{{blog.Title}} </h1>
-                    </router-link>
-                    <h2 class="BlogBlurb">{{blog.Blurb}}</h2>
+                    <div v-if="CurrentBlog === blog.id" id="Content" class="Content" style="height: 500px">
 
+                    </div>
                 </div>
-            </div>
             </transition>
+
         </div>
+
+
 
         </div>
 
@@ -37,7 +41,7 @@
 
 <script>
     import BlogController from '@/services/BlogServices'
-
+//document.getElementById('blog').innerHTML
 
     import JQuery from 'jquery';
     let $ = JQuery;
@@ -55,14 +59,27 @@
                 ShownBlogs: undefined,
                 TransferBlogList: undefined,
                 Reversed: false,
+                CurrentBlog: undefined,
             }
         },
         methods: {
+            ClickBlog(blog) {
+                console.log("CLICKED");
+                if(blog.id === this.CurrentBlog) {
+                    this.CurrentBlog = undefined;
+                } else {
+                    this.CurrentBlog = blog.id;
+                    document.getElementsByName('Content').innerHTML = blog.Content;
+                }
+                console.log(this.CurrentBlog);
+
+            },
+
             async getBlogs() {
                 try {
 
                     const blogs = await BlogController.getAll();
-
+                    console.log('Got this');
                     console.log(blogs.data.Blogs);
                     this.blogs = blogs.data.Blogs;
                     this.ReRollBlogs();
@@ -140,12 +157,16 @@
         margin: 2vw 3vw 2vw 3vw;
         align-self: center;
         justify-self: center;
+        box-shadow:
+          -50px -50px 0 -40px tomato,
+          50px 50px 0 -40px tomato;
+
     }
     .ImageContent {
         width: 30vw;
         height: 19vw;
     }
-    .BlogPost {
+    .OLD {
         display: inline-grid;
         grid-template-columns: 50% 50%;
         top: 0;
@@ -156,6 +177,35 @@
         box-shadow:  1px 10px 18px #888888;
         overflow: hidden; /* make sure it hides the content that overflows */
         text-overflow: ellipsis;
+    }
+    .BlogPost {
+        overflow: hidden;
+        position: relative;
+        display: inline-grid;
+        grid-template-columns: 50% 50%;
+        margin: 2vw 0 2vw 0;
+        max-width: 72.5vw;
+        height: 23vw;
+        border-radius: 20px;
+        background-color: #ffffff;
+        color: #363c5f;
+        padding: 40px;
+        text-align: left;
+        flex-direction: column;
+        justify-content: space-between;
+        clip-path: polygon(0 0, calc(100% - 30px) 0, 100% 30px, 100% 100%, 0 100%);
+    }
+
+    .BlogPost::after {
+        content: '';
+        position: absolute;
+        display: block;
+        width: 30px;
+        height: 30px;
+        background-color: #e1e1f2;
+        top: 0;
+        right: 0;
+        border-bottom-left-radius: 20px;
     }
     .AuthorDate {
         position: relative;

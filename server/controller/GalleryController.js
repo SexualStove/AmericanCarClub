@@ -1,10 +1,10 @@
-const {gallery} = require('../models');
+const {Gallery} = require('../models');
 
 
 module.exports = {
     async createGallery (req, res) {
         try {
-            const GalleryData = await gallery.create(req.body);
+            const GalleryData = await Gallery.create(req.body);
             console.log(req.body);
             res.send(GalleryData)
         } catch (err) {
@@ -17,7 +17,7 @@ module.exports = {
         try{
             const GalleryID = req.params.GalleryID;
 
-            const Gallery = await gallery.findOne({
+            const Gallery = await Gallery.findOne({
                 where: {
                     id: GalleryID
                 }
@@ -42,9 +42,9 @@ module.exports = {
             })
         }
     },
-    async getGalleries (req,res) {
+    async getAllGallery (req,res) {
         try{
-            const allGalleries = await gallery.findAll();
+            const allGalleries = await Gallery.findAll();
             res.send({
                 Galleries: allGalleries
             })
@@ -54,7 +54,7 @@ module.exports = {
     },
     async uploadThumbnail (req,res) {
         try {
-            const upload = await gallery.upsert(req.body, {
+            const upload = await Gallery.upsert(req.body, {
                 where: {
                     Title: req.body.Title
                 }
