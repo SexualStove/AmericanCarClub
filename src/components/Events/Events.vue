@@ -15,13 +15,12 @@
                             <h3 class="BlogAuthor">By: {{blog.Author}}</h3>
                             <h3 class="BlogAuthor">{{blog.Date}}</h3>
                         </div>
-                        <router-link tag="div" v-bind:to="'/Blog/'+blog.id">
+
                             <h1 class="BlogTitle">{{blog.Title}} </h1>
-                        </router-link>
                         <h2 class="BlogBlurb">{{blog.Blurb}}</h2>
                     </div>
-                    <div v-if="CurrentBlog === blog.id" id="Content" class="Content" style="height: 500px">
-
+                    <div v-html="blog.Content" v-if="CurrentBlog === blog.id" id="ContentBlog" class="ContentBlog" >
+                      <h4> {{innerHTML = blog.Content}}</h4>
                     </div>
                 </div>
             </transition>
@@ -69,7 +68,8 @@
                     this.CurrentBlog = undefined;
                 } else {
                     this.CurrentBlog = blog.id;
-                    document.getElementsByName('Content').innerHTML = blog.Content;
+                    console.log(document.getElementById('ContentBlog'));
+                    document.getElementById('ContentBlog').innerHTML = blog.Content;
                 }
                 console.log(this.CurrentBlog);
 
@@ -148,6 +148,7 @@
 </script>
 <style scoped>
     .Thumbnail {
+      grid-area: Image;
         width: auto;
         max-width: 30vw;
         min-height: 17vw;
@@ -183,11 +184,13 @@
         position: relative;
         display: inline-grid;
         grid-template-columns: 50% 50%;
+        //grid-template-rows: auto;
+        grid-template-areas: "Image SmallInfo" "Content Content";
         margin: 2vw 0 2vw 0;
         max-width: 72.5vw;
-        height: 23vw;
+        min-height: 23vw;
         border-radius: 20px;
-        background-color: #ffffff;
+        background-color: #D7CDCC;
         color: #363c5f;
         padding: 40px;
         text-align: left;
@@ -206,6 +209,7 @@
         top: 0;
         right: 0;
         border-bottom-left-radius: 20px;
+
     }
     .AuthorDate {
         position: relative;
@@ -224,31 +228,38 @@
         color: #100B00;
         text-align: left;
         transition: 1s;
-        font-family: 'Big Shoulders Text', cursive;
+        font-family: 'Cinzel', serif;
         font-size: 3vw;
+
 
     }
     .BlogTitle:hover {
         cursor: pointer;
         text-underline: black dash-dot-dot-heavy;
-        text-shadow: 4px 4px #859e30;
+        text-shadow: 4px 4px #30011E;
+    }
+    #ContentBlog {
+      width: 100%;
+      grid-area: Content;
     }
 
     .BlogContent {
         margin-top: 1vw;
         width: 36vw;
-
+        grid-area: SmallInfo;
         line-height: 1.1;
+        transition: 1s;
     }
     .BlogBlurb {
-        font-family: 'Montserrat', sans-serif;
+      font-family: 'Roboto', sans-serif;
         text-align: left;
         font-size: 1.3vw;
         font-weight: 500;
         max-height: 1vw;
+
     }
     .blog {
-        background-color: #dadbe0;
+      background-color: #30011E;
     }
     .BlogLoad-enter-active {
         transition: all 1s ease;

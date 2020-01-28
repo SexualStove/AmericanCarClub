@@ -6,7 +6,7 @@
     </transition>
     <div id="Content">
       <transition name="slide-fade-right" v-bind:key="CurrentPage">
-        <AboutUs v-if="CurrentPage === 1" style="margin-top: 6%"></AboutUs>
+        <AboutUs v-if="CurrentPage === 1" style="margin-top: 5.5%"></AboutUs>
       </transition>
       <transition name="slide-fade-right" v-bind:key="CurrentPage">
         <Events v-if="CurrentPage === 3" style="margin-top: 6%"></Events>
@@ -65,7 +65,7 @@
   transform: translate(-49.65vw, 0);
   overflow-x: hidden;
   max-width: 100%;
-  background-color: #BBCBCB;
+  background-color: #30011E;
   z-index: -1;
 }
 .fade-enter-active, .fade-leave-active {
