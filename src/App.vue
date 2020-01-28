@@ -1,11 +1,13 @@
 <template>
   <div id="app">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <router-view/>
   </div>
 </template>
 
 <script>
 import Vue from 'vue';
+
 
 export const EventBus = new Vue();
 export default {
