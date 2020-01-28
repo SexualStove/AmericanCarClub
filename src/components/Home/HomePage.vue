@@ -9,6 +9,9 @@
         <AboutUs v-if="CurrentPage === 1" style="margin-top: 6%"></AboutUs>
       </transition>
       <transition name="slide-fade-right" v-bind:key="CurrentPage">
+        <ContactUs v-if="CurrentPage === 2" style="margin-top: 6%"></ContactUs>
+      </transition>
+      <transition name="slide-fade-right" v-bind:key="CurrentPage">
         <Events v-if="CurrentPage === 3" style="margin-top: 6%"></Events>
       </transition>
       <transition name="slide-fade-right" v-bind:key="CurrentPage">
@@ -23,6 +26,7 @@
     import HomePageSplashScreen from "./HomePageSplashScreen";
     import AboutUs from "../About/AboutUs";
     import AllGalleries from '../Gallery/AllGalleries'
+    import ContactUs from "../ContactUs/ContactUsForm";
     //import EventsPage from "../Events/EventsPage";
     import {EventBus} from "../../App";
 
@@ -32,7 +36,7 @@
     //style="background: linear-gradient(to left,#A4B0F5, #FFFCF2); width: 100vw"
     export default {
         name: "HomePage",
-        components: {Events, AboutUs, HomePageSplashScreen, AllGalleries},
+        components: {Events, AboutUs, HomePageSplashScreen, AllGalleries, ContactUs},
         data() {
             return {
                 CurrentPage: 0,
