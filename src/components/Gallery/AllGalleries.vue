@@ -1,11 +1,11 @@
 <template>
-  <div id="AboutUsPage">
+  <div id="GalleryPage">
     <div v-if="CurrentGallery !== undefined">
       <Gallery :GalleryVue="CurrentGallery" :image-table="ImageTable"></Gallery>
     </div>
     <div v-if="CurrentGallery === undefined">
-      <div  v-on:click="ClickedGallery(GalleryChunk)" v-for="GalleryChunk in Galleries" :key="GalleryChunk.id">
-        <h1>{{GalleryChunk.Title}}</h1>
+      <div class="GalleryIcon"  v-on:click="ClickedGallery(GalleryChunk)" v-for="GalleryChunk in Galleries" :key="GalleryChunk.id">
+        <h1 class="GalleryTitle">{{GalleryChunk.Title}}</h1>
         <img class="Thumbnail" v-bind:src="GalleryChunk.Image" alt="None">
       </div>
     </div>
@@ -130,17 +130,17 @@
 </script>
 
 <style scoped>
-  #AboutUsTitle {
-
+  .GalleryTitle {
+    color: #D7CDCC;
     font-family: 'Cinzel', serif;
     font-size: 2.5vw;
-    margin: 0% 15% 3% 1%;
+
 
   }
 
-  #AboutUsPage {
+  #GalleryPage {
     width: 100vw;
-
+    background-color: #30011E;
   }
   #AboutUsContent {
     font-size: 1.2vw;
@@ -149,7 +149,7 @@
     font-family: 'Roboto', sans-serif;
   }
   .Thumbnail {
-    width: 50vw;
+    max-width: 50vw;
     box-shadow:
       -50px -50px 0 -40px tomato,
       50px 50px 0 -40px tomato;
@@ -160,5 +160,8 @@
   }
   .GalleryImages {
     display: inline-block;
+  }
+  .GalleryIcon {
+    padding: 4vw 0 4vw 0;
   }
 </style>

@@ -105,15 +105,14 @@
     }
     .ImageGallery {
         display: inline-block;
-        width: 20vw;
+        max-width: 20vw;
     }
     .ImageGallery:hover {
     }
     .GalleryImages {
         display: inline-block;
-        width: 25vw;
-        height: 25vw;
-        margin: 1vw 12.5vw 1vw 12.5vw;
+        max-width: 25vw;
+        margin: 4vw 14.5vw 4vw 14.5vw;
         justify-content: center;
         align-content: center;
     }
@@ -121,8 +120,8 @@
 
     .active {
         z-index: 3;
-        width: 50vw;
-        height: 45vw;
+        max-width: 50vw;
+        width: 300%;
         position: fixed;
         top: 5%;
         left: 25%;

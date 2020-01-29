@@ -12,6 +12,7 @@
         <hr>
 
         <div class="banking">
+            <b>Bank Account</b> <br>
             <i class="fa fa-university" aria-hidden="true"></i>
             <b>02-0865-0415870-00</b> <br><br>
             <i>Please include your name as a reference</i>
@@ -24,14 +25,14 @@
             </div>
             <div v-if="currentChosen === 'Heads'" >
                 <div v-for="head in clubHeads" v-bind:key="head" style="display: inline-block" id="heads">
-                    {{head.name}}<br>
-                    <i>{{head.position}}</i><br>
+                    <b>{{head.name}}</b><br><br>
+                    <i>{{head.position}}</i><br><br>
                     {{head.number}}
                 </div>
             </div>
             <div v-if="currentChosen === 'Members'" class="contacts">
                 <div v-for="member in committeeMembers" v-bind:key="member" style="display: inline-block" id="members">
-                    {{member}}
+                    <b>{{member}}</b>
                 </div>
             </div>
         </div>
@@ -116,7 +117,9 @@
         "bank bank bank"
         "people people people"
         ". . .";
-        margin-top: 15%;
+        margin-top: 10%;
+        color: #D7CDCC;
+        font-family: 'Roboto', sans-serif;
     }
     .fa-envelope-square{
         font-size: xx-large;
@@ -140,8 +143,10 @@
         text-align: left;
         text-indent: -0em;
         margin-bottom: 5%;
+        margin-top: 5%;
     }
     .people{
+        margin-top: 5%;
         grid-area: people;
         /*background-color: red;*/
     }

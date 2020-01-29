@@ -63,7 +63,7 @@
 
     #ContactUsPage{
 
-        background-color: #BBCBCB;
+        background-color: #30011E;
         display: grid;
         grid-template-columns: 10% 10% 10% 10% 10% 10% 10% 10% 10% 10%;
         grid-template-rows: auto;
@@ -93,10 +93,17 @@
         font-family: 'Cinzel', serif;
         font-size: 65px;
         font-style: oblique;
-        color: black;
+        color: #D7CDCC;
     }
     .ContactDetails{
         grid-area: detail;
+    }
+
+    @media (max-width: 800px) {
+        #ContactUsPage{
+            display: block;
+        }
+
     }
 
 </style>
