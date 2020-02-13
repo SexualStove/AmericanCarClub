@@ -1,10 +1,10 @@
 <template>
     <div id="ContactUsPage">
 
-        <ContactDetails class="ContactDetails" style="display: inline-block">
+        <ContactDetails id="Left" class="ContactDetails" style="display: inline-block">
         </ContactDetails>
 
-        <div class="form" style="display: inline-block">
+        <div id="Right" class="form" style="display: inline-block">
             <span class="ContactUsTitle">Contact Us</span>
             <form id="form" class="topBefore"  @submit.prevent="sendEmail" >
                 <div><input class="input" name ="user_name" type="text" placeholder="  NAME"></div>
@@ -28,10 +28,12 @@
 <script>
     import emailjs from "emailjs-com";
     import ContactDetails from "./ContactDetails";
+    import {  TimelineMax, Back } from "gsap"
     export default {
         components: {ContactDetails},
         data() {
             return {
+                Played: false,
             }
         },
         methods: {
@@ -54,6 +56,23 @@
 
         },
         mounted() {
+            let self = this;
+            this.$nextTick(function(){
+                window.addEventListener("scroll", function() {
+                    console.log(document.documentElement.scrollTop);
+                    if (document.documentElement.scrollTop >= 550) {
+                        if(self.Played === false) {
+                            var LogoStringTimeline = new TimelineMax({});
+                            LogoStringTimeline.to("#Submit", 0.1, {opacity: 1}).to(
+                              "#Right", 1, {opacity: 1, x: 0, ease: Back.easeOut.config(0.2)}).to(
+                              "#Left",1, {opacity: 1, x: 0, ease: Back.easeOut.config(0.2)}
+                            );
+                            self.Played = true
+                        }
+
+                    }
+                })
+            });
 
         }
     }
@@ -98,7 +117,15 @@
     .ContactDetails{
         grid-area: detail;
     }
-
+    #Left {
+        color: white;
+        transform: translateX(-2000px);
+        opacity: 0;
+    }
+    #Right {
+        transform: translateX(2000px);
+        opacity: 0;
+    }
     @media (max-width: 800px) {
         #ContactUsPage{
             display: block;

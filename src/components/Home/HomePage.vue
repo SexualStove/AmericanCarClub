@@ -15,7 +15,7 @@
         <Events v-if="CurrentPage === 3" style="margin-top: 6%"></Events>
       </transition>
       <transition name="slide-fade-right" v-bind:key="CurrentPage">
-        <AllGalleries v-if="CurrentPage === 4"></AllGalleries>
+        <AllGalleries v-if="CurrentPage === 4"  style="margin-top: 6%"></AllGalleries>
       </transition>
     </div>
 
@@ -30,8 +30,9 @@
     //import EventsPage from "../Events/EventsPage";
     import {EventBus} from "../../App";
 
-    import JQuery from 'jquery';
+
     import Events from "../Events/Events";
+    import JQuery from 'jquery';
     let $ = JQuery;
     //style="background: linear-gradient(to left,#A4B0F5, #FFFCF2); width: 100vw"
     export default {

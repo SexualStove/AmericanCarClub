@@ -3,9 +3,13 @@
         <div >
             <div id="BlackBackground"></div>
 
-            <div style="margin-top: 15%">
-                <button id="ButtonBoi" v-on:click="BackOut()">Back To Menu</button>
+            <div style="padding-top: 2%; position: relative">
+                <div id="ButtonBoi" v-on:click="BackOut()">
+                    <img id="ExitCar" src="../../assets/images/ExitCar.png" alt="None">
+                    <h3 id="BackButton">Back!</h3>
+                </div>
                 <h1 id="Title">{{GalleryVue.Title}}</h1>
+
                 <img class="Thumbnail" v-bind:src="GalleryVue.Image" alt="None">
             </div>
             <div style="height: 5vw"></div>
@@ -73,7 +77,26 @@
 
 <style scoped>
     #ButtonBoi {
-        margin: 0 5vw 5vw 5vw;
+        position: absolute;
+        left: -2%;
+        top: 5%;
+        margin: 0 1vw 1vw 5vw;
+        display: grid;
+        grid-template-rows: 50% 50%;
+        width: 6vw;
+        cursor: pointer;
+    }
+    #ExitCar {
+        width: 6vw;
+        transition: 1s;
+    }
+    #ButtonBoi:hover #ExitCar {
+        transform: translateX(-4vw) rotate(10deg);
+    }
+    #BackButton {
+        transform: translateY(-2.7vh);
+        width: 6vw;
+        text-align: center;
     }
     #Title {
         font-size: 5vw;
@@ -89,6 +112,7 @@
     }
 
     #GallerySolo {
+      color: #D7CDCC;
         width: 100vw;
         text-align: left;
 

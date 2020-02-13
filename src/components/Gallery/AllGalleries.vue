@@ -40,11 +40,15 @@
         },
 
         methods: {
+
             ClickedGallery(GalleryChunk) {
                 console.log(GalleryChunk);
                 EventBus.$emit('Gallery', GalleryChunk);
                 EventBus.$emit('ImageTable', this.ImageTable);
                 this.CurrentGallery = GalleryChunk;
+                $('html, body').animate({
+                    scrollTop: $('#Divider').offset().top + 200
+                }, 500);
             },
 
             async getGalleries() {
@@ -74,6 +78,7 @@
                 this.SortNewBlogs();
                 //this.SortNewBlogs();
             },
+
             SortNewBlogs: function() {
                 this.Galleries = this.blogs.slice();
                 let BlogLength = this.Galleries.length;

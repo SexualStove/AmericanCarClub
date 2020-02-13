@@ -24,7 +24,7 @@
                 <button id="memberButton" v-on:click="setMembers" style="margin-left: 5%; background-color: white">Committee Members</button>
             </div>
             <div v-if="currentChosen === 'Heads'" >
-                <div v-for="head in clubHeads" v-bind:key="head" style="display: inline-block" id="heads">
+                <div v-for="head in clubHeads" v-bind:key="head.name" style="display: inline-block" id="heads">
                     <b>{{head.name}}</b><br><br>
                     <i>{{head.position}}</i><br><br>
                     {{head.number}}
