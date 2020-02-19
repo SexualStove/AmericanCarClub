@@ -142,7 +142,7 @@
           for(i=0; i < this.dataImages.length; i++) {
               await this.ReadImage(this.dataImages[i]);
           }
-
+          alert("Gallery has been added!");
 
         } catch (err) {
           this.error = err;

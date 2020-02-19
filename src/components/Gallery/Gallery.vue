@@ -16,6 +16,11 @@
             <div v-for="Image in FilteredList" v-bind:key="Image.id" class="GalleryImages" >
                 <img v-on:click="FullSize"  class="ImageGallery" v-bind:src="Image.Image" alt="None">
             </div>
+            <div class="close-container" v-if="this.FullSized">
+                <div class="leftright"></div>
+                <div class="rightleft"></div>
+                <label id="Close" class="close">close</label>
+            </div>
 
         </div>
     </div>
@@ -37,6 +42,7 @@
 
                 TransferBlogList: undefined,
                 Reversed: false,
+                FullSized: false,
 
             }
         },
@@ -56,6 +62,7 @@
             }
         },
         mounted() {
+            let self= this;
             $('.ImageGallery').click(function () {
                 $('.active').not(this).addClass('non_active');
                 $('.active').not(this).removeClass('active');
@@ -63,12 +70,14 @@
                     $(this).addClass('non_active');
                     $(this).removeClass('active');
                     $('#BlackBackground').backgroundColor = -1;
-                    $('#BlackBackground').backgroundColor = 'rgba(0, 0, 0, 0);'
+                    $('#BlackBackground').backgroundColor = 'rgba(0, 0, 0, 0);';
+                    self.FullSized = false;
                 } else {
                     $(this).removeClass('non_active');
                     $(this).addClass('active');
                     $('#BlackBackground').zIndex = 2;
-                    $('#BlackBackground').backgroundColor = 'rgba(0, 0, 0, 0.2);'
+                    $('#BlackBackground').backgroundColor = 'rgba(0, 0, 0, 0.2);';
+                    //self.FullSized = true;
                 }
             })
         }
@@ -144,11 +153,14 @@
 
     .active {
         z-index: 3;
-        max-width: 50vw;
-        width: 300%;
+        max-width: 70vw;
+        max-height: 90vh;
+        width: 200%;
         position: fixed;
-        top: 5%;
-        left: 25%;
+        left: 50%;
+        top: 50%;
+        transform: translate(-50%, -50%);
+        box-shadow:  0vw  0vw 100vw 100vw rgba(0,0,0,0.7);
     }
     img {
         max-height: 100%;
@@ -170,4 +182,77 @@
         background-color: rgba(0, 0, 0, 0);
         z-index: -1;
     }
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+    .close-container {
+        position: fixed;
+        right: 15%;
+        width: 50px;
+        height: 50px;
+        z-index: 6;
+        cursor: pointer;
+        top: 6%;
+    }
+    .leftright {
+        height: 4px;
+        width: 50px;
+        position: absolute;
+        margin-top: 24px;
+        background-color: #f4a259;
+        border-radius: 2px;
+        transform: rotate(45deg);
+        transition: all 0.3s ease-in;
+    }
+    .rightleft {
+        height: 4px;
+        width: 50px;
+        position: absolute;
+        margin-top: 24px;
+        background-color: #f4a259;
+        border-radius: 2px;
+        transform: rotate(-45deg);
+        transition: all 0.3s ease-in;
+    }
+    #Close {
+        color: white;
+        font-family: Helvetica, Arial, sans-serif;
+        font-size: 0.6em;
+        text-transform: uppercase;
+        letter-spacing: 2px;
+        transition: all 0.3s ease-in;
+        opacity: 0;
+    }
+    .close {
+        margin: 60px 0 0 5px;
+        position: absolute;
+    }
+    .close-container:hover .leftright {
+        transform: rotate(-45deg);
+        background-color: #f25c66;
+    }
+    .close-container:hover .rightleft {
+        transform: rotate(45deg);
+        background-color: #f25c66;
+    }
+    .close-container:hover label {
+        opacity: 1;
+    }
+
 </style>

@@ -431,6 +431,7 @@
 
             });
             console.log(response.Date);
+            alert("Event has been added!");
             //Clear Fields after saving to database
 
           } catch (err) {
