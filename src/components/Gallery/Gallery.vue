@@ -130,6 +130,7 @@
     .ImageGallery {
         display: inline-block;
         max-width: 20vw;
+        cursor: pointer;
     }
     .ImageGallery:hover {
     }
@@ -139,8 +140,8 @@
         margin: 4vw 14.5vw 4vw 14.5vw;
         justify-content: center;
         align-content: center;
-    }
 
+    }
 
     .active {
         z-index: 3;

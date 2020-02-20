@@ -46,7 +46,7 @@
                 {{command.text}}
               </button>
             </div>
-            <div  class="command-bar" style="display: block; float: right; padding-right: 2%; border: 1px gray solid; border-top: none; border-radius: 0 0 20px 0; padding-bottom: 5px" >
+            <div  class="command-bar" style="display: inline-block; padding-right: 2%; border: 1px gray solid; border-top: none; border-radius: 0 0 20px 0; padding-bottom: 5px" >
               <button v-for="command in removeCommands" class="format-button" v-bind:key="command.cmd" v-on:click="doCommand(command)" style="float: right; margin-right: 10px">
                 <i class="command.icon"></i>{{command.text}}
               </button>

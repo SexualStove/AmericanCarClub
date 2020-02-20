@@ -15,10 +15,11 @@
             <h1 style="margin-top: 5vw"> Adding images to the gallery</h1>
             <div>
               <form v-for="i in TotalPictures" :key="i" class="uploadbanner" enctype="multipart/form-data" style="margin-top: 10px;">
-                <label>Image </label><input class="image" ref="file" name="myfile" type="file" required @change="onFileChangeImages" accept="image/*"/>
-                <label>Image </label><input class="image" ref="file" name="myfile" type="file" required @change="onFileChangeImages" accept="image/*"/>
-                <label>Image </label><input class="image" ref="file" name="myfile" type="file" required @change="onFileChangeImages" accept="image/*"/>
+                <label>Image: </label>
+                  <img id="preview"/>
+                  <input class="image" ref="file" name="myfile" type="file" required @change="onFileChangeImages" accept="image/*"/>
               </form>
+
               <button id="MorePics" v-on:click="MorePictures">More Pictures!</button>
             </div>
 
@@ -99,12 +100,37 @@
           self.data = e.target.result;
 
         });
+
       },
 
           async onFileChangeImages(e){
 
+
+
             var blobData =  e.target.files[0];
-            this.dataImages.push(blobData);
+            var nameArray = this.dataImages.map(function(el) {return el.name;});
+
+
+            // Check if image exists already
+            if (nameArray.includes(blobData.name))
+            {
+                // do nothing
+            } else
+            {
+                this.dataImages.push(blobData);
+                var reader = new FileReader();
+
+                reader.onload = function(e) {
+                    document.getElementById("preview").src=e.target.result;
+                    document.getElementById("preview").height=150;
+                    document.getElementById("preview").width=150;
+                };
+
+                reader.readAsDataURL(blobData);
+            }
+            this.MorePictures();
+
+
 
         },
         async ReadImage(blobData) {
