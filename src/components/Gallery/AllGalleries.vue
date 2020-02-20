@@ -1,6 +1,6 @@
 <template>
   <div id="GalleryPage">
-    <div id="SearchOptions">
+    <div id="SearchOptions" v-if="CurrentGallery === undefined">
       <button v-on:click="SortNewBlogs" class="btn-shine">
         <span>Reverse Order</span>
       </button>

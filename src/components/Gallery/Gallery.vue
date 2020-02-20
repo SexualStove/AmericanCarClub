@@ -16,7 +16,7 @@
             <div v-for="Image in FilteredList" v-bind:key="Image.id" class="GalleryImages" >
                 <img v-on:click="FullSize"  class="ImageGallery" v-bind:src="Image.Image" alt="None">
             </div>
-            <div class="close-container" v-if="this.FullSized">
+            <div class="close-container" v-if="this.FullSized && !this.FullSize">
                 <div class="leftright"></div>
                 <div class="rightleft"></div>
                 <label id="Close" class="close">close</label>
@@ -77,7 +77,7 @@
                     $(this).addClass('active');
                     $('#BlackBackground').zIndex = 2;
                     $('#BlackBackground').backgroundColor = 'rgba(0, 0, 0, 0.2);';
-                    //self.FullSized = true;
+                    self.FullSized = true;
                 }
             })
         }
