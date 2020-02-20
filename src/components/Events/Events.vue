@@ -1,8 +1,14 @@
 <template>
     <div class="blog">
-        <div>
-            <button style="display: inline-block" v-on:click="SortNewBlogs">New Order</button>
-            <input v-on:change="SortNewBlogs" style="display: inline-block" id="SearchBlog" type="text" placeholder="Search">
+        <div id="SearchOptions">
+            <button v-on:click="SortNewBlogs" class="btn-shine">
+                <span>Reverse Order</span>
+            </button>
+            <div class="search">
+                <div>
+                <input v-on:change="SortNewBlogs" style="display: inline-block" id="SearchBlog" type="text" placeholder="       Search . . ." required>
+                </div>
+            </div>
         </div>
         <div>
 
@@ -12,8 +18,8 @@
                     <img class="Thumbnail" v-bind:src="blog.Thumbnail" alt="../assets/images/BrokenImage.png">
                     <div class="BlogContent">
                         <div class="AuthorDate">
-                            <h3 class="BlogAuthor">By: {{blog.Author}}</h3>
-                            <h3 class="BlogAuthor">{{blog.Date}}</h3>
+                            <h3 class="BlogAuthor">When: {{blog.When}}</h3>
+                            <h3 class="BlogAuthor"> Where: {{blog.Where}}</h3>
                         </div>
 
                             <h1 class="BlogTitle">{{blog.Title}} </h1>
@@ -83,6 +89,7 @@
                     console.log(blogs.data.Blogs);
                     this.blogs = blogs.data.Blogs;
                     this.ReRollBlogs();
+                    this.ReRollBlogs();
                     this.thumbnail = this.blogs[9].Thumbnail.data;
 
                     // this.blogContent = blogData.data.blog.Content;
@@ -109,7 +116,8 @@
                 let FilterList = [];
                 let i = 0;
                 for(i=0; i < BlogLength; i++) {
-                    if((this.ShownBlogs[i].Title.includes(SearchText) || this.ShownBlogs[i].Blurb.includes(SearchText))) {
+                    if((this.ShownBlogs[i].Title.toLowerCase().includes(SearchText.toLowerCase()) ||
+                      this.ShownBlogs[i].Blurb.toLowerCase().includes(SearchText.toLowerCase()))) {
                         FilterList.push(this.ShownBlogs[i]);
                         console.log("Added new chunk to list");
                         console.log(FilterList);
@@ -147,6 +155,7 @@
     }
 </script>
 <style scoped>
+
     .Thumbnail {
       grid-area: Image;
         width: auto;
@@ -212,6 +221,7 @@
 
     }
     .AuthorDate {
+        transform: translate(-15vw, -3vw);
         position: relative;
         display: inline-grid;
         grid-template-columns: 50% 50%;
@@ -236,7 +246,6 @@
     .BlogTitle:hover {
         cursor: pointer;
         text-underline: black dash-dot-dot-heavy;
-        text-shadow: 4px 4px #30011E;
     }
     #ContentBlog {
       width: 100%;
@@ -273,6 +282,197 @@
         -ms-transform: scale(0.1);
         -webkit-transform: scale(0.1);
         opacity: 0;
+    }
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+    .search {
+        margin: 20px;
+    }
+
+    .search > h3 {
+        font-weight: normal;
+    }
+
+    .search > h1,
+    .search > h3 {
+        color: white;
+        margin-bottom: 15px;
+        text-shadow: 0 1px #0091c2;
+    }
+
+    .search > div {
+        display: inline-block;
+        position: relative;
+    }
+
+    .search > div:after {
+        content: "";
+        background: #F8DFDD;
+        width: 4px;
+        height: 20px;
+        position: absolute;
+        top: 40px;
+        right: 2px;
+        transform: rotate(135deg);
+        box-shadow: 1px 0 #0091c2;
+    }
+
+    .search > div > input {
+        color: #F8DFDD;
+        font-size: 16px;
+        background: transparent;
+        width: 25px;
+        height: 25px;
+        padding: 10px;
+        border: solid 3px white;
+        outline: none;
+        border-radius: 35px;
+        box-shadow: 0 1px #0091c2;
+        transition: width 0.5s;
+    }
+
+    .search > div > input::placeholder {
+        color: #F8DFDD;
+        opacity: 1;
+    }
+
+    .search > div > input::-ms-placeholder {
+        color: #F8DFDD;
+    }
+
+    .search > div > input::-ms-input-placeholder {
+        color: #F8DFDD;
+    }
+
+    .search > div > input:focus,
+    .search > div > input:valid {
+        width: 250px;
+    }
+
+
+    button {
+        position: relative;
+        margin: 0;
+        padding: 5px 12px;
+        height: 60px;
+        width: 150px;
+        outline: none;
+        text-decoration: none;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        cursor: pointer;
+        text-transform: uppercase;
+        background-color: #F8DFDD;
+        border: 1px solid rgba(22, 76, 167, 0.6);
+        border-radius: 10px;
+        color: black;
+        font-weight: 400;
+        font-size: 20px;
+        font-family: inherit;
+        z-index: 0;
+        overflow: hidden;
+        transition: all 0.3s cubic-bezier(0.02, 0.01, 0.47, 1);
+    }
+    button span {
+        color: black;
+        font-size: 12px;
+        font-weight: 500;
+        letter-spacing: 0.7px;
+    }
+    button:hover {
+        animation: rotate 0.7s ease-in-out both;
+    }
+    button:hover span {
+        animation: storm 0.7s ease-in-out both;
+        animation-delay: 0.06s;
+    }
+    @keyframes rotate {
+        0% {
+            transform: rotate(0deg) translate3d(0, 0, 0);
+        }
+        25% {
+            transform: rotate(3deg) translate3d(0, 0, 0);
+        }
+        50% {
+            transform: rotate(-3deg) translate3d(0, 0, 0);
+        }
+        75% {
+            transform: rotate(1deg) translate3d(0, 0, 0);
+        }
+        100% {
+            transform: rotate(0deg) translate3d(0, 0, 0);
+        }
+    }
+    @keyframes storm {
+        0% {
+            transform: translate3d(0, 0, 0) translateZ(0);
+        }
+        25% {
+            transform: translate3d(4px, 0, 0) translateZ(0);
+        }
+        50% {
+            transform: translate3d(-3px, 0, 0) translateZ(0);
+        }
+        75% {
+            transform: translate3d(2px, 0, 0) translateZ(0);
+        }
+        100% {
+            transform: translate3d(0, 0, 0) translateZ(0);
+        }
+    }
+
+    .btn-shine {
+        border: 1px solid;
+        overflow: hidden;
+        position: relative;
+        justify-self: center;
+        align-self: center;
+    }
+    .btn-shine span {
+        z-index: 20;
+    }
+    .btn-shine:after {
+        background: tomato;
+        content: "";
+        height: 155px;
+        left: -75px;
+        opacity: 0.4;
+        position: absolute;
+        top: -50px;
+        transform: rotate(35deg);
+        transition: all 550ms cubic-bezier(0.19, 1, 0.22, 1);
+        width: 50px;
+        z-index: -10;
+    }
+    .btn-shine:hover:after {
+        left: 120%;
+        transition: all 550ms cubic-bezier(0.19, 1, 0.22, 1);
+    }
+    .inspire a {
+        text-decoration: none;
+    }
+
+    #SearchOptions {
+        display: grid;
+        grid-template-columns: 50% 50%;
+        justify-self: center;
+        align-self: center;
+        margin: 5% 25% 0 25%;
     }
 
 </style>
