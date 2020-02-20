@@ -16,13 +16,14 @@
             <div>
               <form v-for="i in TotalPictures" :key="i" class="uploadbanner" enctype="multipart/form-data" style="margin-top: 10px;">
                 <label>Image: </label>
-                  <img id="preview"/>
+
                   <input class="image" ref="file" name="myfile" type="file" required @change="onFileChangeImages" accept="image/*"/>
               </form>
+<!--                need to convert image to blob file fck-->
+                <img v-for="image in dataImages" :key="image" class="preview" v-bind:src="image" alt="no">
+                    <button id="MorePics" v-on:click="MorePictures">More Pictures!</button>
 
-              <button id="MorePics" v-on:click="MorePictures">More Pictures!</button>
             </div>
-
           </div>
 
     </div>
@@ -109,7 +110,6 @@
 
             var blobData =  e.target.files[0];
             var nameArray = this.dataImages.map(function(el) {return el.name;});
-
 
             // Check if image exists already
             if (nameArray.includes(blobData.name))
