@@ -177,6 +177,7 @@
     box-shadow:
       -50px -50px 0 -40px tomato,
       50px 50px 0 -40px tomato;
+    cursor: pointer;
   }
   .ImageGallery {
     display: inline-block;
@@ -187,6 +188,7 @@
   }
   .GalleryIcon {
     padding: 4vw 0 4vw 0;
+
   }
   .BlogLoad-enter-active {
     transition: all 1s ease;
