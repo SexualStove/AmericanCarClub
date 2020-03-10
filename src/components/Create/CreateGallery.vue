@@ -19,9 +19,9 @@
 
                   <input class="image" ref="file" name="myfile" type="file" required @change="onFileChangeImages" accept="image/*"/>
               </form>
-<!--                need to convert image to blob file fck-->
+<!--                need to convert image to blob file fck
                 <img v-for="image in dataImages" :key="image" class="preview" v-bind:src="image" alt="no">
-                    <button id="MorePics" v-on:click="MorePictures">More Pictures!</button>
+                    <button id="MorePics" v-on:click="MorePictures">More Pictures!</button> -->
 
             </div>
           </div>
@@ -104,30 +104,30 @@
 
       },
 
-          async onFileChangeImages(e){
+          async onFileChangeImages(){
 
 
 
-            var blobData =  e.target.files[0];
-            var nameArray = this.dataImages.map(function(el) {return el.name;});
+              /*var blobData =  e.target.files[0];
+              var nameArray = this.dataImages.map(function(el) {return el.name;});
 
-            // Check if image exists already
-            if (nameArray.includes(blobData.name))
-            {
-                // do nothing
-            } else
-            {
-                this.dataImages.push(blobData);
-                var reader = new FileReader();
+              // Check if image exists already
+              if (nameArray.includes(blobData.name))
+              {
+                  // do nothing
+              } else
+              {
+                  this.dataImages.push(blobData);
+                  var reader = new FileReader();
 
-                reader.onload = function(e) {
-                    document.getElementById("preview").src=e.target.result;
-                    document.getElementById("preview").height=150;
-                    document.getElementById("preview").width=150;
-                };
+                  reader.onload = function(e) {
+                      document.getElementById("preview").src=e.target.result;
+                      document.getElementById("preview").height=150;
+                      document.getElementById("preview").width=150;
+                  };
 
-                reader.readAsDataURL(blobData);
-            }
+                  reader.readAsDataURL(blobData);
+              }*/
             this.MorePictures();
 
 
