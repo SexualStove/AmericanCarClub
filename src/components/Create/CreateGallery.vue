@@ -20,8 +20,8 @@
                   <input class="image" ref="file" name="myfile" type="file" required @change="onFileChangeImages" accept="image/*"/>
               </form>
 <!--                need to convert image to blob file fck
-                <img v-for="image in dataImages" :key="image" class="preview" v-bind:src="image" alt="no">
-                    <button id="MorePics" v-on:click="MorePictures">More Pictures!</button> -->
+                <img v-for="image in ImagesShowCase" :key="image" class="preview" v-bind:src="image" alt="no">
+                    <button id="MorePics" v-on:click="MorePictures">More Pictures!</button>  -->
 
             </div>
           </div>
@@ -48,6 +48,7 @@
           CurrentGalleryId: 0,
           dataImages: [],
           TotalPictures: 1,
+          ImagesShowCase: [],
       }
 
     },
@@ -87,6 +88,7 @@
         outputSection.innerHTML = this.userInput;
       },
 
+
       async onFileChange(e){
 
         var blobData =  e.target.files[0];
@@ -104,11 +106,11 @@
 
       },
 
-          async onFileChangeImages(){
+        async onFileChangeImages(e){
 
 
 
-              /*var blobData =  e.target.files[0];
+              var blobData =  e.target.files[0];
               var nameArray = this.dataImages.map(function(el) {return el.name;});
 
               // Check if image exists already
@@ -119,15 +121,19 @@
               {
                   this.dataImages.push(blobData);
                   var reader = new FileReader();
+                  /*//console.log(blobData);
+                  await this.ImagesShowCase.push(reader.onload = function(e) {
+                      console.log(e.target.result);
 
-                  reader.onload = function(e) {
-                      document.getElementById("preview").src=e.target.result;
+                      //document.getElementById("preview").src=e.target.result;
                       document.getElementById("preview").height=150;
                       document.getElementById("preview").width=150;
-                  };
+                      return  e.target.result;
+                  });
+                  await console.log(this.ImagesShowCase);*/
 
                   reader.readAsDataURL(blobData);
-              }*/
+              }
             this.MorePictures();
 
 
