@@ -30,4 +30,8 @@ export default {
   body {
     margin: 0;
   }
+  html {
+    max-width: 100%;
+    overflow-x: hidden;
+  }
 </style>
