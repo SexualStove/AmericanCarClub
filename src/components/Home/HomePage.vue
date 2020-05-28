@@ -45,9 +45,16 @@
         },
         methods: {
             ServiceClick() {
-                $('html, body').animate({
-                    scrollTop: $('#Content').offset().top
-                }, 2000);
+                if(this.CurrentPage === 1) {
+                    $('html, body').animate({
+                        scrollTop: $('#Content').offset().top + 1000
+                    }, 2000);
+                } else {
+                    $('html, body').animate({
+                        scrollTop: $('#Content').offset().top
+                    }, 2000);
+                }
+
             }
         },
         mounted() {

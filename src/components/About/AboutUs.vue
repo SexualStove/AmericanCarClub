@@ -4,7 +4,7 @@
     <div id="Content">
       <div id="ContentWords">
         <h1 id="AboutUsTitle">
-          American Classic Car Club (Canterbury) Inc
+          The American Classic Car Club (Canterbury) Inc
         </h1>
         <p id="AboutUsContent">
           The club was formed during the 1970’s. It continues to be a strong club of like-minded people of all ages, like-minded in that all of our members have a passion for American Classic Cars.

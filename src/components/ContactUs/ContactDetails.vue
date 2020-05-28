@@ -67,7 +67,7 @@
                     {
                         "position": "Club Captain",
                         "name": "Ray Bewley",
-                        "number": "-"
+                        "number": "027 492 4546"
                     },
                 ],
                 committeeMembers:[
@@ -120,12 +120,14 @@
         margin-top: 10%;
         color: #D7CDCC;
         font-family: 'Roboto', sans-serif;
+        font-size: 2vw;
     }
     .fa-envelope-square{
         font-size: xx-large;
         text-indent: -1em;
     }
     .po{
+        font-size: 1.2vw;
         grid-area: po;
         /*background-color: blue;*/
         text-align: left;
@@ -138,6 +140,7 @@
         text-indent: -1.2em;
     }
     .banking{
+        font-size: 1.2vw;
         grid-area: banking;
         /*background-color: green;*/
         text-align: left;
@@ -146,8 +149,11 @@
         margin-top: 5%;
     }
     .people{
+        font-size: 1vw;
         margin-top: 5%;
         grid-area: people;
+        transform: translateX(-15%);
+        width: 130%;
         /*background-color: red;*/
     }
     #heads{
