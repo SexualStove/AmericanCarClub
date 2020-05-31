@@ -154,8 +154,8 @@
 
     .active {
         z-index: 3;
-        max-width: 70vw;
-        max-height: 90vh;
+        max-width: 90vw;
+        max-height: 100vh;
         //width: 200%;
         position: fixed;
         left: 50%;
