@@ -12,7 +12,7 @@
 
       </div>
       <h1 id="LogoTop">
-        American Classics Car Club
+        The American Classic Car Club (Canterbury) Inc.
       </h1>
       <div id="Line"></div>
 
@@ -103,9 +103,10 @@
   }
 
   #LogoTop {
+    padding-top: 2.3vw;
     font-family: 'Cinzel', serif;
     color: goldenrod;
-    font-size: 3vw;
+    font-size: 1.8vw;
     opacity: 0;
   }
 

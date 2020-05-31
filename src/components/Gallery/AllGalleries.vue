@@ -5,9 +5,6 @@
         <span>Reverse Order</span>
       </button>
       <div class="search">
-        <div>
-          <input v-on:change="SortNewBlogs" style="display: inline-block" id="SearchBlog" type="text" placeholder="       Search . . ." required>
-        </div>
       </div>
     </div>
     <div v-if="CurrentGallery !== undefined">
@@ -100,7 +97,7 @@
                 console.log("Was this triggered?");
                 this.Galleries = this.blogs.slice();
                 let BlogLength = this.Galleries.length;
-                let SearchText = document.getElementById('SearchBlog').value;
+                let SearchText = "";
                 if(this.Reversed) {
                     this.Galleries = this.Galleries.reverse();
                 }
@@ -125,7 +122,9 @@
             }
         },
         beforeMount() {
-            this.getGalleries()
+            this.getGalleries();
+            this.SortNewBlogs();
+            this.SortNewBlogs();
         },
 
         computed: {
@@ -387,7 +386,7 @@
 
   #SearchOptions {
     display: grid;
-    grid-template-columns: 50% 50%;
+    grid-template-columns: 99% 1%;
     justify-self: center;
     align-self: center;
     margin: 5% 25% 0 25%;

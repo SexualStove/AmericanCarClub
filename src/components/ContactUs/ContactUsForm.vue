@@ -4,7 +4,7 @@
         <ContactDetails id="Left" class="ContactDetails" style="display: inline-block">
         </ContactDetails>
 
-        <div id="Right" class="form" style="display: inline-block">
+        <div id="Right" class="form" style="display: inline-block; transform: translate(25%, 10%) scale(1.2);">
             <span class="ContactUsTitle">Contact Us</span>
             <form id="form" class="topBefore"  @submit.prevent="sendEmail" >
                 <div><input class="input" name ="user_name" type="text" placeholder="  NAME"></div>
@@ -12,7 +12,7 @@
                 <div><input class="input" name="company" type="text" placeholder="  COMPANY"></div>
                 <div><input class="input" name="phone" type="text" placeholder="  CONTACT NO"></div>
                 <div><textarea class="input" name="message" type="text" placeholder=" MESSAGE"></textarea></div>
-                <div><input id="Submit" type="submit" class="button" value="Submit"></div>
+                <div><input style="padding: 0.3vw 0.5vw 0.3vw 0.5vw" id="Submit" type="submit" class="button" value="Submit"></div>
 
             </form>
         </div>

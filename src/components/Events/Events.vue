@@ -5,9 +5,7 @@
                 <span>Reverse Order</span>
             </button>
             <div class="search">
-                <div>
-                <input v-on:change="SortNewBlogs" style="display: inline-block" id="SearchBlog" type="text" placeholder="       Search . . ." required>
-                </div>
+
             </div>
         </div>
         <div>
@@ -108,7 +106,7 @@
             SortNewBlogs: function() {
                 this.ShownBlogs = this.blogs.slice();
                 let BlogLength = this.ShownBlogs.length;
-                let SearchText = document.getElementById('SearchBlog').value;
+                let SearchText = "";
                 if(this.Reversed) {
                     this.ShownBlogs = this.ShownBlogs.reverse();
                 }
@@ -133,7 +131,9 @@
             }
         },
         beforeMount() {
-            this.getBlogs()
+            this.getBlogs();
+            this.SortNewBlogs();
+            this.SortNewBlogs();
         },
 
         computed: {
@@ -141,6 +141,7 @@
         },
         mounted() {
             var self = this;
+
             this.$nextTick(function(){
                 window.addEventListener("scroll", function() {
                     self.Scrolled = document.documentElement.scrollTop;

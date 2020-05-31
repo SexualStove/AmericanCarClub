@@ -122,7 +122,7 @@
 
     #GallerySolo {
       color: #D7CDCC;
-        width: 100vw;
+        //width: 100vw;
         text-align: left;
 
     }
@@ -133,7 +133,7 @@
         font-family: 'Roboto', sans-serif;
     }
     .Thumbnail {
-        width: 50vw;
+        //width: 50vw;
         margin-left: 25vw;
     }
     .ImageGallery {
@@ -156,7 +156,7 @@
         z-index: 3;
         max-width: 70vw;
         max-height: 90vh;
-        width: 200%;
+        //width: 200%;
         position: fixed;
         left: 50%;
         top: 50%;
