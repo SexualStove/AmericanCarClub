@@ -470,7 +470,7 @@
 
     #SearchOptions {
         display: grid;
-        grid-template-columns: 50% 50%;
+        grid-template-columns: 99% 1%;
         justify-self: center;
         align-self: center;
         margin: 5% 25% 0 25%;
