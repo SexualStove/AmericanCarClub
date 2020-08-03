@@ -8,7 +8,7 @@
       </div>
     </div>
     <div v-if="CurrentGallery !== undefined">
-      <Gallery :GalleryVue="CurrentGallery" :image-table="ImageTable"></Gallery>
+      <Gallery :GalleryVue="CurrentGallery" :LoadTable="true"></Gallery>
     </div>
     <div v-if="CurrentGallery === undefined">
       <div  v-on:click="ClickedGallery(GalleryChunk)" v-for="GalleryChunk in Galleries" :key="GalleryChunk.id">
@@ -56,7 +56,7 @@
         methods: {
 
             ClickedGallery(GalleryChunk) {
-                console.log(GalleryChunk);
+                //console.log(GalleryChunk);
                 EventBus.$emit('Gallery', GalleryChunk);
                 EventBus.$emit('ImageTable', this.ImageTable);
                 this.CurrentGallery = GalleryChunk;
@@ -69,11 +69,11 @@
                 try {
 
                     const blogs = await BlogController.getAllGallery();
-                    const images = await BlogController.getImageTables();
-                    console.log(blogs.data.Galleries);
+                    //const images = await BlogController.getImageTables();
+                    //console.log(blogs.data.Galleries);
 
-                    this.ImageTable = images.data.Galleries;
-                    console.log(this.ImageTable);
+                    //this.ImageTable = images.data.Galleries;
+                    //console.log(this.ImageTable);
                     this.blogs = blogs.data.Galleries;
                     this.ReRollBlogs();
                     this.ReRollBlogs();
@@ -115,8 +115,8 @@
                 for(i=0; i < this.Galleries.length; i++) {
                     this.Galleries[i]["Type"] = i;
                 }
-                console.log("Added new chunk to list");
-                console.log(FilterList);
+                //console.log("Added new chunk to list");
+                //console.log(FilterList);
                 this.TotalBlogSize = 2;
 
             }

@@ -24,6 +24,16 @@
                     <button id="MorePics" v-on:click="MorePictures">More Pictures!</button>  -->
 
             </div>
+            <div id="app" v-cloak @drop.prevent="addFile" @dragover.prevent>
+              <h2>Files to Upload (Drag them over)</h2>
+              <ul>
+                <li v-for="file in files" v-bind:key="file.name">
+                  {{ file.name }} ({{ file.size | kb }} kb) <button @click="removeFile(file)" title="Remove">X</button>
+                </li>
+              </ul>
+
+              <button :disabled="uploadDisabled" @click="upload">Upload</button>
+            </div>
           </div>
 
     </div>
@@ -49,6 +59,7 @@
           dataImages: [],
           TotalPictures: 1,
           ImagesShowCase: [],
+          files:[]
       }
 
     },
@@ -58,7 +69,26 @@
     beforeMount() {
         this.getBlogs()
     },
+    computed: {
+        uploadDisabled() {
+            return this.files.length === 0;
+        }
+    },
     methods: {
+        addFile(e) {
+            let droppedFiles = e.dataTransfer.files;
+            if(!droppedFiles) return;
+            // this tip, convert FileList to array, credit: https://www.smashingmagazine.com/2018/01/drag-drop-file-uploader-vanilla-js/
+            ([...droppedFiles]).forEach(f => {
+                this.files.push(f);
+                console.log(f);
+            });
+        },
+        removeFile(file){
+            this.files = this.files.filter(f => {
+                return f !== file;
+            });
+        },
 
         MorePictures() {
             this.TotalPictures += 1;
@@ -171,8 +201,8 @@
           });
             console.log(response.Date);
           let i = 0;
-          for(i=0; i < this.dataImages.length; i++) {
-              await this.ReadImage(this.dataImages[i]);
+          for(i=0; i < this.files.length; i++) {
+              await this.ReadImage(this.files[i]);
           }
           alert("Gallery has been added!");
 

@@ -29,6 +29,7 @@
     import emailjs from "emailjs-com";
     import ContactDetails from "./ContactDetails";
     import {  TimelineMax, Back } from "gsap"
+    import SendMail from "../../services/BlogServices"
     export default {
         components: {ContactDetails},
         data() {
@@ -37,16 +38,18 @@
             }
         },
         methods: {
-            sendEmail: function (e){
+            sendEmail: async function (e) {
+                const response = await SendMail.sendMail({});
+                console.log(response);
                 console.log(e.target);
                 emailjs.sendForm('outlook', 'template_Uw0MXK3o', e.target, 'user_uOprWSk6Oex46gljAzERQ')
-                    // eslint-disable-next-line no-unused-vars
-                    .then((response) => {
-                        // eslint-disable-next-line no-undef
-                        console.log('SUCCESS!', response.status, response.text);
-                    }, (error) => {
-                        console.log('FAILED...', error);
-                    });
+                // eslint-disable-next-line no-unused-vars
+                  .then((response) => {
+                      // eslint-disable-next-line no-undef
+                      console.log('SUCCESS!', response.status, response.text);
+                  }, (error) => {
+                      console.log('FAILED...', error);
+                  });
 
             },
 

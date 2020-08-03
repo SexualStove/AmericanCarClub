@@ -3,9 +3,12 @@
 const BlogController = require('./controller/BlogController');
 const GalleryController = require('./controller/GalleryController');
 const ImageTableController = require('./controller/ImageTableController');
+const SendEmail = require('./controller/SendEmail');
 // const AuthenticationControllerPolicy = require('./policies/BlogPolicies')
 
 module.exports = (app) => {
+    app.post('/', SendEmail.sendMail);
+
     app.post('/create', BlogController.createBlog);
     // AuthenticationControllerPolicy.register
     app.get('/blog/:blogId', BlogController.getBlog);
@@ -18,7 +21,7 @@ module.exports = (app) => {
 
     app.post('/createImage', ImageTableController.createImageTable);
 
-    app.get('/ImageTable', ImageTableController.getImageTables);
+    app.get('/ImageTable:id', ImageTableController.getImageTables);
 
     // app.put('/create', BlogController.uploadThumbnail)
 

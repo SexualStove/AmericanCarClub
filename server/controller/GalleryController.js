@@ -5,7 +5,7 @@ module.exports = {
     async createGallery (req, res) {
         try {
             const GalleryData = await Gallery.create(req.body);
-            console.log(req.body);
+            //console.log(req.body);
             res.send(GalleryData)
         } catch (err) {
             res.status(400).send({
@@ -22,9 +22,9 @@ module.exports = {
                     id: GalleryID
                 }
             });
-            console.log('HERE IS THE ERROR', Gallery.dataValues);
+            //console.log('HERE IS THE ERROR', Gallery.dataValues);
             if(!Gallery) {
-                console.log("DO I GET HERE");
+                //console.log("DO I GET HERE");
                 res.status(403).send({
                     error: ' Blog Post does not exist'
                 })
@@ -44,7 +44,8 @@ module.exports = {
     },
     async getAllGallery (req,res) {
         try{
-            const allGalleries = await Gallery.findAll();
+            const allGalleries = await Gallery.findAll({
+            });
             res.send({
                 Galleries: allGalleries
             })
@@ -59,7 +60,7 @@ module.exports = {
                     Title: req.body.Title
                 }
             });
-            console.log(upload);
+            //console.log(upload);
             res.send({
                 message: upload
             })

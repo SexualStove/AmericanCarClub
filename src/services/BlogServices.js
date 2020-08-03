@@ -21,9 +21,12 @@ export default {
     getAllGallery (){
         return Api().get('/Gallery')
     },
-    getImageTables (){
-        return Api().get('/ImageTable')
+    getImageTables (id){
+        return Api().get('/ImageTable'+id)
     },
+    sendMail () {
+        return Api().post('/')
+    }
     // uploadThumbnail (file){
     //     return Api().post('/create', file)
     // }

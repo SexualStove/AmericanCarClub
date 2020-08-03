@@ -14,8 +14,15 @@ module.exports = {
         }
     },
     async getImageTables (req,res) {
+        const CurrentGallery = req.params.id;
+        console.log(req.params);
         try{
-            const allImageTables = await ImageTable.findAll();
+            const allImageTables = await ImageTable.findAll({
+                where: {
+                    GalleryLink: CurrentGallery
+                }
+                }
+            );
             res.send({
                 Galleries: allImageTables
             })

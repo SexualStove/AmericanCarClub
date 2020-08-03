@@ -5,7 +5,7 @@ module.exports = {
     async createBlog (req, res) {
         try {
             const blogData = await Blog.create(req.body);
-            console.log(req.body)
+            //console.log(req.body)
             res.send(blogData)
         } catch (err) {
             res.status(400).send({
@@ -22,7 +22,7 @@ module.exports = {
                     id: blogId
                 }
             });
-            console.log('HERE IS THE ERROR', blog.dataValues);
+            //console.log('HERE IS THE ERROR', blog.dataValues);
             if(!blog) {
                 console.log("DO I GET HERE");
                 res.status(403).send({
@@ -59,7 +59,7 @@ module.exports = {
                     Title: req.body.Title
                 }
             });
-            console.log(upload);
+            //console.log(upload);
             res.send({
                 message: upload
             })

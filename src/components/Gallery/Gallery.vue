@@ -16,6 +16,10 @@
             <div v-for="Image in FilteredList" v-bind:key="Image.id" class="GalleryImages" >
                 <img v-on:click="FullSize"  class="ImageGallery" v-bind:src="Image.Image" alt="None">
             </div>
+            <div id="SwitchArea">
+                <button v-on:click="Change(-4)">Back</button>
+                <button v-on:click="Change(4)">Next</button>
+            </div>
             <div class="close-container" v-if="this.FullSized && !this.FullSize">
                 <div class="leftright"></div>
                 <div class="rightleft"></div>
@@ -27,6 +31,7 @@
 </template>
 
 <script>
+    import BlogController from '@/services/BlogServices'
     import {EventBus} from "../../App";
     import JQuery from 'jquery';
     let $ = JQuery;
@@ -43,16 +48,27 @@
                 TransferBlogList: undefined,
                 Reversed: false,
                 FullSized: false,
-
+                ImageTable: [],
+                Start: 0,
+                End: 4,
             }
         },
         computed: {
             FilteredList() {
-                return this.ImageTable.filter(x => parseInt(x.GalleryLink) === parseInt(this.GalleryVue.id));
+                if(this.LoadTabe) {
+                    return []
+                } else {
+                    return this.ImageTable.filter(x => parseInt(x.GalleryLink) === parseInt(this.GalleryVue.id)).slice(this.Start,this.End);
+                }
             }
         },
-        props: ['GalleryVue', 'ImageTable'],
+        props: ['GalleryVue', 'LoadTable'],
         methods: {
+            Change(int) {
+                this.End += int;
+                this.Start += int;
+                console.log(this.End);
+            },
           BackOut() {
                   EventBus.$emit('CurrentGallery', undefined);
             },
@@ -61,8 +77,15 @@
 
             }
         },
-        mounted() {
-            let self= this;
+        async mounted() {
+            if (this.LoadTable) {
+                console.log(this.GalleryVue);
+                const images = await BlogController.getImageTables(this.GalleryVue.id);
+                this.ImageTable = images.data.Galleries;
+                console.log(this.ImageTable);
+                this.LoadTable = false;
+            }
+            let self = this;
             $('.ImageGallery').click(function () {
                 $('.active').not(this).addClass('non_active');
                 $('.active').not(this).removeClass('active');
