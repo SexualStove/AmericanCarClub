@@ -14,7 +14,10 @@
             </div>
             <div style="height: 5vw"></div>
             <div v-for="Image in FilteredList" v-bind:key="Image.id" class="GalleryImages" >
-                <img v-on:click="FullSize"  class="ImageGallery" v-bind:src="Image.Image" alt="None">
+                <img  v-on:click="FullSize" class="ImageGallery" :src="getImgUrl(Image.Location)" :alt="Image.Location.toLocaleString()">
+            </div>
+            <div id="FullScreenImage" v-if="CurrentImage !== ''">
+                <img  v-on:click="CheckFull" class="ImageGallery active" :src="CurrentImage" :alt="None">
             </div>
             <div id="SwitchArea">
                 <button v-on:click="Change(-4)">Back</button>
@@ -51,6 +54,7 @@
                 ImageTable: [],
                 Start: 0,
                 End: 4,
+                CurrentImage: ""
             }
         },
         computed: {
@@ -58,26 +62,38 @@
                 if(this.LoadTabe) {
                     return []
                 } else {
-                    return this.ImageTable.filter(x => parseInt(x.GalleryLink) === parseInt(this.GalleryVue.id)).slice(this.Start,this.End);
+                    return this.ImageTable.filter(x => parseInt(x.GalleryLink) === parseInt(this.GalleryVue.id)).slice(0,this.End);
                 }
             }
         },
         props: ['GalleryVue', 'LoadTable'],
         methods: {
+            //"
+            CheckFull() {
+              if(this.CurrentImage !== '') {
+                  this.CurrentImage = ''
+              }
+            },
+            getImgUrl(image) {
+                //console.log("Fiding this image: "+"../../../server/uploads/"+image);
+                return require("../../../server/uploads/"+image);
+            },
+
             Change(int) {
                 this.End += int;
                 this.Start += int;
                 console.log(this.End);
             },
+
           BackOut() {
                   EventBus.$emit('CurrentGallery', undefined);
             },
 
-            FullSize() {
-
+            FullSize(e) {
+                this.CurrentImage = e.target.src;
             }
         },
-        async mounted() {
+        async beforeMount() {
             if (this.LoadTable) {
                 console.log(this.GalleryVue);
                 const images = await BlogController.getImageTables(this.GalleryVue.id);
@@ -85,8 +101,26 @@
                 console.log(this.ImageTable);
                 this.LoadTable = false;
             }
+        },
+        mounted() {
             let self = this;
-            $('.ImageGallery').click(function () {
+            this.$nextTick(function(){
+                window.addEventListener("scroll", function() {
+                    self.Scrolled = document.documentElement.scrollTop;
+                    if ($(window).scrollTop() + $(window).height() > $(document).height() - 200) {
+
+                            self.End += 2;
+
+                    }
+                })
+            });
+            $("img").click(function() {
+                console.log("colorClass");
+            });
+            $("img").on('click', function (event) {
+                event.stopPropagation();
+                event.stopImmediatePropagation();
+                console.log("Cicked ffs");
                 $('.active').not(this).addClass('non_active');
                 $('.active').not(this).removeClass('active');
                 if ($(this).hasClass('active')) {

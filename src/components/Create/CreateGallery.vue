@@ -42,7 +42,6 @@
 
 <script>
   import GalleryController from '@/services/BlogServices'
-
   // import JQuery from 'jquery'
 // <button class="get-html" v-on:click="getHTML"> Save to Blogsite! </button>
 
@@ -77,12 +76,24 @@
     methods: {
         addFile(e) {
             let droppedFiles = e.dataTransfer.files;
+            console.log(e.target);
+            let data = new FormData();
+            //let file = e.target;
+
+            data.append('name', 'my-file');
+
+            console.log(data);
             if(!droppedFiles) return;
             // this tip, convert FileList to array, credit: https://www.smashingmagazine.com/2018/01/drag-drop-file-uploader-vanilla-js/
             ([...droppedFiles]).forEach(f => {
                 this.files.push(f);
+                data.append('file', f);
+                console.log(data);
                 console.log(f);
             });
+            for (var pair of data.entries()) {
+                console.log(pair[0]+ ', ' + pair[1]);
+            }
         },
         removeFile(file){
             this.files = this.files.filter(f => {
@@ -178,13 +189,33 @@
             }
             self.GalleryId = this.CurrentGalleryId;
             self.ImageData = '';
-            readFile(blobData, function(e){
+            //let Untouched = this.files;
+            console.log(this.$refs.thumbnail);
+            console.log(this.files);
+            readFile(blobData, async function (e) {
                 self.ImageData = e.target.result;
-                console.log('Pushing now');
-                console.log(self.GalleryId);
-                GalleryController.createImageTable({
+                const BlobBoi = blobData;
+                let BlobName= BlobBoi.name + Date.now() + '.jpeg';
+                const formdata = new FormData();
+                //formdata.append('name', 'ImageTransfer');
+                let blob = BlobBoi.slice(0, BlobBoi.size, 'image/png');
+                let newFile = new File([blob], BlobName, {type: 'image/png'});
+                formdata.append('file', newFile);
+
+                for (var pair of formdata.entries()) {
+                    console.log(pair[0] + ', ' + pair[1]);
+                }
+                try {
+                    //await axios.post('/upload', formdata);
+                    await GalleryController.Upload(formdata);
+                    console.log("Sent one!");
+                } catch (e) {
+                    console.log(e);
+                }
+                //console.log(this.files[0]);
+                await GalleryController.createImageTable({
                     GalleryLink: self.GalleryId,
-                    Image: e.target.result
+                    Location: BlobName,
                 });
             });
         },

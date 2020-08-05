@@ -4,7 +4,7 @@ module.exports = (sequelize, DataTypes) =>{
         GalleryLink:{
             type: DataTypes.STRING
         },
-        Image: {
+        Location: {
             type: DataTypes.STRING
         },
 

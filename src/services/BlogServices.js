@@ -24,6 +24,9 @@ export default {
     getImageTables (id){
         return Api().get('/ImageTable'+id)
     },
+    Upload(formdata) {
+        Api().post('/Upload', formdata)
+    },
     sendMail () {
         return Api().post('/')
     }

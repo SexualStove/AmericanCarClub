@@ -2,10 +2,10 @@ const {ImageTable} = require('../models');
 
 
 module.exports = {
+
     async createImageTable (req, res) {
         try {
             const ImageTableData = await ImageTable.create(req.body);
-            console.log(req.body);
             res.send(ImageTableData)
         } catch (err) {
             res.status(400).send({
@@ -37,7 +37,7 @@ module.exports = {
                     Title: req.body.Title
                 }
             });
-            console.log(upload);
+            //console.log(upload);
             res.send({
                 message: upload
             })
