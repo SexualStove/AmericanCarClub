@@ -107,13 +107,13 @@
     .form .input{
         position: relative;
         width: 80%;
-        height: 50px;
+        height: 5vh;
         margin: 5px;
 
     }
     .ContactUsTitle{
         font-family: 'Cinzel', serif;
-        font-size: 65px;
+        font-size: 4vw;
         font-style: oblique;
         color: #D7CDCC;
     }
