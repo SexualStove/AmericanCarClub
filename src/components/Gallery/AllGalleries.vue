@@ -16,7 +16,7 @@
           <div style="transition: 1s" class="BlogPost" v-if="GalleryChunk.Type < TotalBlogSize">
             <div class="GalleryIcon">
               <h1 class="GalleryTitle">{{GalleryChunk.Title}}</h1>
-              <img class="Thumbnail" v-bind:src="GalleryChunk.Image" alt="None">
+              <img class="Thumbnail" :src="getThumbNail(GalleryChunk.Location)" alt="None">
             </div>
           </div>
         </transition>
@@ -54,6 +54,9 @@
         },
 
         methods: {
+            getThumbNail(image) {
+                return require("../../../server/uploads/Thumbnails/"+image);
+            },
 
             ClickedGallery(GalleryChunk) {
                 //console.log(GalleryChunk);
@@ -157,8 +160,6 @@
     color: #D7CDCC;
     font-family: 'Cinzel', serif;
     font-size: 2.5vw;
-
-
   }
 
   #GalleryPage {

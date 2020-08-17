@@ -5,34 +5,19 @@
       <button style="padding: 1vw" class="get-html" v-on:click="getHTML"> Save to Gallery! </button>
 
           <br>
-          <div style="position: relative; width: 75%; margin-left: auto; margin-right: auto">
-            <h1 style="margin-top: 5vw"> Icon And Title</h1>
-             <div id="Title" contenteditable="true" style="margin-top: 10px;"> TITLE (Click here) </div>
+          <div style="margin-top: 5vw; position: relative; width: 75%; margin-left: auto; margin-right: auto">
+             <div class="GalleryTitle" id="Title" contenteditable="true" style="margin-top: 10px;"> TITLE (Click here) </div>
               <form id="uploadbanner" enctype="multipart/form-data" style="margin-top: 10px;">
-                <label>Thumbnail </label><input id="thumbnail" ref="Thumbnail" name="myfile" type="file" required @change="onFileChange" accept="image/*"/>
+                <label class="GalleryTitle">Thumbnail <br></label><input id="thumbnail" ref="Thumbnail" name="myfile" type="file" required @change="onFileChange" accept="image/*"/>
               </form>
 
-            <h1 style="margin-top: 5vw"> Adding images to the gallery</h1>
-            <div>
-              <form v-for="i in TotalPictures" :key="i" class="uploadbanner" enctype="multipart/form-data" style="margin-top: 10px;">
-                <label>Image: </label>
-
-                  <input class="image" ref="file" name="myfile" type="file" required @change="onFileChangeImages" accept="image/*"/>
-              </form>
-<!--                need to convert image to blob file fck
-                <img v-for="image in ImagesShowCase" :key="image" class="preview" v-bind:src="image" alt="no">
-                    <button id="MorePics" v-on:click="MorePictures">More Pictures!</button>  -->
-
-            </div>
-            <div id="app" v-cloak @drop.prevent="addFile" @dragover.prevent>
+            <div id="ImageArea" v-cloak @drop.prevent="addFile" @dragover.prevent>
               <h2>Files to Upload (Drag them over)</h2>
               <ul>
                 <li v-for="file in files" v-bind:key="file.name">
-                  {{ file.name }} ({{ file.size | kb }} kb) <button @click="removeFile(file)" title="Remove">X</button>
+                  {{ file.name }} ({{ file.size | kb }}) <button @click="removeFile(file)" title="Remove">X</button>
                 </li>
               </ul>
-
-              <button :disabled="uploadDisabled" @click="upload">Upload</button>
             </div>
           </div>
 
@@ -44,7 +29,32 @@
   import GalleryController from '@/services/BlogServices'
   // import JQuery from 'jquery'
 // <button class="get-html" v-on:click="getHTML"> Save to Blogsite! </button>
+  import Vue from 'vue'
+  Vue.filter('kb', function (num) {
+      // jacked from: https://github.com/sindresorhus/pretty-bytes
+      if (typeof num !== 'number' || isNaN(num)) {
+          throw new TypeError('Expected a number');
+      }
 
+      var exponent;
+      var unit;
+      var neg = num < 0;
+      var units = ['B', 'kB', 'MB', 'GB', 'TB', 'PB', 'EB', 'ZB', 'YB'];
+
+      if (neg) {
+          num = -num;
+      }
+
+      if (num < 1) {
+          return (neg ? '-' : '') + num + ' B';
+      }
+
+      exponent = Math.min(Math.floor(Math.log(num) / Math.log(1000)), units.length - 1);
+      num = (num / Math.pow(1000, exponent)).toFixed(2) * 1;
+      unit = units[exponent];
+
+      return (neg ? '-' : '') + num + ' ' + unit;
+  });
   export default {
     name: 'HelloWorld',
       data() {
@@ -69,9 +79,7 @@
         this.getBlogs()
     },
     computed: {
-        uploadDisabled() {
-            return this.files.length === 0;
-        }
+
     },
     methods: {
         addFile(e) {
@@ -101,9 +109,6 @@
             });
         },
 
-        MorePictures() {
-            this.TotalPictures += 1;
-        },
 
         async getBlogs() {
             try {
@@ -132,54 +137,19 @@
 
       async onFileChange(e){
 
-        var blobData =  e.target.files[0];
 
-        function readFile(file, onloadCallback) {
+
+        /*function readFile(file, onloadCallback) {
           var reader = new FileReader();
           reader.onload = onloadCallback;
           reader.readAsDataURL(file)
-        }
-        self.data = '';
-        readFile(blobData, function(e){
-          self.data = e.target.result;
+        }*/
+        self.data =  e.target.files[0];
 
-        });
 
       },
 
-        async onFileChangeImages(e){
 
-
-
-              var blobData =  e.target.files[0];
-              var nameArray = this.dataImages.map(function(el) {return el.name;});
-
-              // Check if image exists already
-              if (nameArray.includes(blobData.name))
-              {
-                  // do nothing
-              } else
-              {
-                  this.dataImages.push(blobData);
-                  var reader = new FileReader();
-                  /*//console.log(blobData);
-                  await this.ImagesShowCase.push(reader.onload = function(e) {
-                      console.log(e.target.result);
-
-                      //document.getElementById("preview").src=e.target.result;
-                      document.getElementById("preview").height=150;
-                      document.getElementById("preview").width=150;
-                      return  e.target.result;
-                  });
-                  await console.log(this.ImagesShowCase);*/
-
-                  reader.readAsDataURL(blobData);
-              }
-            this.MorePictures();
-
-
-
-        },
         async ReadImage(blobData) {
 
             function readFile(file, onloadCallback) {
@@ -226,11 +196,25 @@
           this.Title = document.getElementById('Title').innerText;
 
           console.log("Pushing Gallery");
+          const BlobBoi = self.data;
+          let BlobName= BlobBoi.name + Date.now() + '.jpeg';
+          const formdata = new FormData();
+          //formdata.append('name', 'ImageTransfer');
+          let blob = BlobBoi.slice(0, BlobBoi.size, 'image/png');
+          let newFile = new File([blob], BlobName, {type: 'image/png'});
+          formdata.append('file', newFile);
           const response = await GalleryController.createGallery({
             Title: this.Title,
-            Image: self.data
+            Location: BlobName
           });
             console.log(response.Date);
+            try {
+                //await axios.post('/upload', formdata);
+                await GalleryController.UploadThumbnail(formdata);
+                console.log("Sent one!");
+            } catch (e) {
+                console.log(e);
+            }
           let i = 0;
           for(i=0; i < this.files.length; i++) {
               await this.ReadImage(this.files[i]);
@@ -365,5 +349,15 @@
   #MorePics {
     margin-top: 5vw;
     padding: 0.5vw;
+  }
+  #ImageArea {
+    padding: 5vw;
+    margin: 1vw;
+    border: 10px dotted lightskyblue  ;
+  }
+  .GalleryTitle {
+    color: black;
+    font-family: 'Cinzel', serif;
+    font-size: 2.5vw;
   }
 </style>

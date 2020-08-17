@@ -10,7 +10,7 @@
                 </div>
                 <h1 id="Title">{{GalleryVue.Title}}</h1>
 
-                <img class="Thumbnail" v-bind:src="GalleryVue.Image" alt="None">
+                <img class="Thumbnail" :src="getThumbNail(GalleryVue.Location)" alt="None">
             </div>
             <div style="height: 5vw"></div>
             <div v-for="Image in FilteredList" v-bind:key="Image.id" class="GalleryImages" >
@@ -78,7 +78,9 @@
                 //console.log("Fiding this image: "+"../../../server/uploads/"+image);
                 return require("../../../server/uploads/"+image);
             },
-
+            getThumbNail(image) {
+              return require("../../../server/uploads/Thumbnails/"+image);
+            },
             Change(int) {
                 this.End += int;
                 this.Start += int;

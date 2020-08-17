@@ -4,7 +4,7 @@ module.exports = (sequelize, DataTypes) =>{
         Title:{
             type: DataTypes.STRING
         },
-        Image: {
+        Location: {
             type: DataTypes.STRING
         },
 

@@ -27,6 +27,9 @@ export default {
     Upload(formdata) {
         Api().post('/Upload', formdata)
     },
+    UploadThumbnail(formdata) {
+        Api().post('/UploadThumbnail', formdata)
+    },
     sendMail () {
         return Api().post('/')
     }
