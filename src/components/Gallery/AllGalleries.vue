@@ -7,6 +7,7 @@
       <div class="search">
       </div>
     </div>
+
     <div v-if="CurrentGallery !== undefined">
       <Gallery :GalleryVue="CurrentGallery" :LoadTable="true"></Gallery>
     </div>
@@ -55,8 +56,7 @@
 
         methods: {
             getThumbNail(image) {
-                var ar = image.split('./');
-                return require("../../../server/uploads/Thumbnails/"+ar[1]);
+                return require("../../../server/uploads/Thumbnails/"+image);
             },
 
             ClickedGallery(GalleryChunk) {
@@ -79,7 +79,7 @@
                     //this.ImageTable = images.data.Galleries;
                     //console.log(this.ImageTable);
                     this.blogs = blogs.data.Galleries;
-                    this.ReRollBlogs();
+                    //this.ReRollBlogs();
                     this.ReRollBlogs();
 
                     // this.blogContent = blogData.data.blog.Content;
@@ -98,7 +98,7 @@
             },
 
             async SortNewBlogs() {
-                console.log("Was this triggered?");
+                //console.log("Was this triggered?");
                 this.Galleries = this.blogs.slice();
                 let BlogLength = this.Galleries.length;
                 let SearchText = "";
@@ -109,6 +109,7 @@
                 let FilterList = [];
                 let i = 0;
                 for(i=0; i < BlogLength; i++) {
+                    console.log(this.Galleries[i].Location)
                     if(this.Galleries[i].Title.toLowerCase().includes(SearchText.toLowerCase())) {
                         FilterList.push(this.Galleries[i]);
 
@@ -128,7 +129,7 @@
         beforeMount() {
             this.getGalleries();
             this.SortNewBlogs();
-            this.SortNewBlogs();
+            //this.SortNewBlogs();
         },
 
         computed: {
