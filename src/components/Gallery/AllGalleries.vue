@@ -55,7 +55,8 @@
 
         methods: {
             getThumbNail(image) {
-                return require("../../../server/uploads/Thumbnails/"+image);
+                var ar = image.split('./');
+                return require("../../../server/uploads/Thumbnails/"+ar[1]);
             },
 
             ClickedGallery(GalleryChunk) {
