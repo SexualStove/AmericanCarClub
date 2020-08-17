@@ -55,7 +55,7 @@
 
         methods: {
             getThumbNail(image) {
-                return require("../../server/uploads/Thumbnails/"+image);
+                return require("../../../server/uploads/Thumbnails/"+image);
             },
 
             ClickedGallery(GalleryChunk) {
