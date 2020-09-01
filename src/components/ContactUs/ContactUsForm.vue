@@ -41,7 +41,7 @@
             sendEmail: async function (e) {
                 const response = await SendMail.sendMail({});
                 console.log(response);
-                console.log(e.target);
+                //console.log(e.target);
                 emailjs.sendForm('outlook', 'template_Uw0MXK3o', e.target, 'user_uOprWSk6Oex46gljAzERQ')
                 // eslint-disable-next-line no-unused-vars
                   .then((response) => {

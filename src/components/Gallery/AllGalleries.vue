@@ -17,7 +17,7 @@
           <div style="transition: 1s" class="BlogPost" v-if="GalleryChunk.Type < TotalBlogSize">
             <div class="GalleryIcon">
               <h1 class="GalleryTitle">{{GalleryChunk.Title}}</h1>
-              <img class="Thumbnail" :src="getThumbNail(GalleryChunk.Location)" alt="None">
+              <img class="Thumbnail" :src="require('../../../server/uploads/Thumbnails/'+GalleryChunk.Location)" alt="None">
             </div>
           </div>
         </transition>
@@ -55,9 +55,7 @@
         },
 
         methods: {
-            getThumbNail(image) {
-                return require("../../../server/uploads/Thumbnails/"+image);
-            },
+
 
             ClickedGallery(GalleryChunk) {
                 //console.log(GalleryChunk);
@@ -109,7 +107,7 @@
                 let FilterList = [];
                 let i = 0;
                 for(i=0; i < BlogLength; i++) {
-                    console.log(this.Galleries[i].Location)
+                    //console.log(this.Galleries[i].Location)
                     if(this.Galleries[i].Title.toLowerCase().includes(SearchText.toLowerCase())) {
                         FilterList.push(this.Galleries[i]);
 
@@ -140,7 +138,7 @@
             var self = this;
             EventBus.$on('CurrentGallery', changed => {
                 self.CurrentGallery = changed;
-                console.log(`Oh, that's nice. It's gotten ${self.CurrentGallery} clicks! :)`);
+                //console.log(`Oh, that's nice. It's gotten ${self.CurrentGallery} clicks! :)`);
             });
 
             this.$nextTick(function(){

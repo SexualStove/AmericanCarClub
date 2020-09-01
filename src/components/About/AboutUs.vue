@@ -45,10 +45,10 @@
             //let self = this;
             this.$nextTick(function(){
                 window.addEventListener("scroll", function() {
-                    console.log(document.documentElement.scrollTop);
+                    //console.log(document.documentElement.scrollTop);
                     if (document.documentElement.scrollTop >= 1500) {
                         this.AboutUsContent = true;
-                        console.log(this.AboutUsContent)
+                        //console.log(this.AboutUsContent)
                         var LogoStringTimeline = new TimelineMax({play: true});
                         LogoStringTimeline.to("#ContentWords", 3, {opacity: 1, scale: 1, ease: Back.easeOut.config(0.2)})
                     }

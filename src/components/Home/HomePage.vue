@@ -62,7 +62,7 @@
             EventBus.$on('Page', changed => {
 
                 self.CurrentPage = changed;
-                console.log(`Oh, that's nice. It's gotten ${self.CurrentPage} clicks! :)`);
+                //console.log(`Oh, that's nice. It's gotten ${self.CurrentPage} clicks! :)`);
                 this.ServiceClick();
             });
         }

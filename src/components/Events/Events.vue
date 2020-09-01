@@ -67,15 +67,15 @@
         },
         methods: {
             ClickBlog(blog) {
-                console.log("CLICKED");
+                //console.log("CLICKED");
                 if(blog.id === this.CurrentBlog) {
                     this.CurrentBlog = undefined;
                 } else {
                     this.CurrentBlog = blog.id;
-                    console.log(document.getElementById('ContentBlog'));
+                    //console.log(document.getElementById('ContentBlog'));
                     document.getElementById('ContentBlog').innerHTML = blog.Content;
                 }
-                console.log(this.CurrentBlog);
+                //console.log(this.CurrentBlog);
 
             },
 
@@ -83,8 +83,8 @@
                 try {
 
                     const blogs = await BlogController.getAll();
-                    console.log('Got this');
-                    console.log(blogs.data.Blogs);
+                    //console.log('Got this');
+                    //console.log(blogs.data.Blogs);
                     this.blogs = blogs.data.Blogs;
                     this.ReRollBlogs();
                     this.ReRollBlogs();
@@ -117,11 +117,11 @@
                     if((this.ShownBlogs[i].Title.toLowerCase().includes(SearchText.toLowerCase()) ||
                       this.ShownBlogs[i].Blurb.toLowerCase().includes(SearchText.toLowerCase()))) {
                         FilterList.push(this.ShownBlogs[i]);
-                        console.log("Added new chunk to list");
-                        console.log(FilterList);
+                        //console.log("Added new chunk to list");
+                        //console.log(FilterList);
                     }
                 }
-                console.log(FilterList);
+                //console.log(FilterList);
                 this.ShownBlogs = FilterList.slice();
                 for(i=0; i < this.ShownBlogs.length; i++) {
                     this.ShownBlogs[i]["Type"] = i;

@@ -10,18 +10,14 @@
                 </div>
                 <h1 id="Title">{{GalleryVue.Title}}</h1>
 
-                <img class="Thumbnail" :src="getThumbNail(GalleryVue.Location)" alt="None">
+                <img class="Thumbnail" :src="require('../../../server/uploads/Thumbnails/'+GalleryVue.Location)" alt="None">
             </div>
             <div style="height: 5vw"></div>
             <div v-for="Image in FilteredList" v-bind:key="Image.id" class="GalleryImages" >
-                <img  v-on:click="FullSize" class="ImageGallery" :src="getImgUrl(Image.Location)" :alt="Image.Location.toLocaleString()">
+                <img  v-on:click="FullSize" class="ImageGallery" :src="require('../../../server/uploads/'+Image.Location)" :alt="Image.Location.toLocaleString()">
             </div>
             <div id="FullScreenImage" v-if="CurrentImage !== ''">
                 <img  v-on:click="CheckFull" class="ImageGallery active" :src="CurrentImage" :alt="None">
-            </div>
-            <div id="SwitchArea">
-                <button v-on:click="Change(-4)">Back</button>
-                <button v-on:click="Change(4)">Next</button>
             </div>
             <div class="close-container" v-if="this.FullSized && !this.FullSize">
                 <div class="leftright"></div>
@@ -74,17 +70,11 @@
                   this.CurrentImage = ''
               }
             },
-            getImgUrl(image) {
-                //console.log("Fiding this image: "+"../../../server/uploads/"+image);
-                return require("../../../server/uploads/"+image);
-            },
-            getThumbNail(image) {
-              return require("../../../server/uploads/Thumbnails/"+image);
-            },
+
             Change(int) {
                 this.End += int;
                 this.Start += int;
-                console.log(this.End);
+                //console.log(this.End);
             },
 
           BackOut() {
@@ -97,10 +87,10 @@
         },
         async beforeMount() {
             if (this.LoadTable) {
-                console.log(this.GalleryVue);
+                //console.log(this.GalleryVue);
                 const images = await BlogController.getImageTables(this.GalleryVue.id);
                 this.ImageTable = images.data.Galleries;
-                console.log(this.ImageTable);
+                //console.log(this.ImageTable);
                 this.LoadTable = false;
             }
         },
@@ -125,18 +115,21 @@
                 console.log("Cicked ffs");
                 $('.active').not(this).addClass('non_active');
                 $('.active').not(this).removeClass('active');
-                if ($(this).hasClass('active')) {
-                    $(this).addClass('non_active');
-                    $(this).removeClass('active');
-                    $('#BlackBackground').backgroundColor = -1;
-                    $('#BlackBackground').backgroundColor = 'rgba(0, 0, 0, 0);';
-                    self.FullSized = false;
-                } else {
-                    $(this).removeClass('non_active');
-                    $(this).addClass('active');
-                    $('#BlackBackground').zIndex = 2;
-                    $('#BlackBackground').backgroundColor = 'rgba(0, 0, 0, 0.2);';
-                    self.FullSized = true;
+
+                if ($(this).hasClass('ImageGallery')) {
+                    if ($(this).hasClass('active')) {
+                        $(this).addClass('non_active');
+                        $(this).removeClass('active');
+                        $('#BlackBackground').backgroundColor = -1;
+                        $('#BlackBackground').backgroundColor = 'rgba(0, 0, 0, 0);';
+                        self.FullSized = false;
+                    } else {
+                        $(this).removeClass('non_active');
+                        $(this).addClass('active');
+                        $('#BlackBackground').zIndex = 2;
+                        $('#BlackBackground').backgroundColor = 'rgba(0, 0, 0, 0.2);';
+                        self.FullSized = true;
+                    }
                 }
             })
         }
