@@ -1,5 +1,6 @@
 const {Gallery} = require('../models');
-
+const ImageTable = require('../controller/ImageTableController');
+const fs = require('fs');
 
 module.exports = {
     async createGallery (req, res) {
@@ -53,6 +54,35 @@ module.exports = {
             console.log(e)
         }
     },
+    async deleteGallery (req, res) {
+      try {
+          await ImageTable.deleteImageTable(req.body.id);
+
+          fs.unlink('../server/uploads/Thumbnails/'+req.body.Thumbnail, (err) => {
+              if (err) {
+                  console.log("failed to delete local image:"+err);
+              } else {
+                  console.log('successfully deleted local image');
+              }
+          });
+
+
+          console.log(req.body);
+          const upload = await  Gallery.destroy({
+              where: {
+                  id: req.body.id
+              }
+          });
+          res.send({
+              message: upload
+          })
+
+      }  catch (e) {
+          console.log(e);
+          res.status(500).json({status: 500, message: e});
+      }
+    },
+
     async uploadThumbnail (req,res) {
         try {
             const upload = await Gallery.upsert(req.body, {

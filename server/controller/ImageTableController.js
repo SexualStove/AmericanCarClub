@@ -1,5 +1,5 @@
 const {ImageTable} = require('../models');
-
+const fs = require('fs');
 
 module.exports = {
 
@@ -12,6 +12,31 @@ module.exports = {
 
             })
         }
+    },
+    async deleteImageTable (id) {
+        try{
+            const images = await ImageTable.findAll({
+                    where: {
+                        GalleryLink: id
+                    }
+                }
+            );
+            //console.log(id);
+            //console.log(images);
+            let i;
+            for(i=0; i < images.length; i++) {
+                fs.unlink('../server/uploads/'+images[i].Location, (err) => {
+                    if (err) {
+                        console.log("failed to delete local image:"+err);
+                    } else {
+                        console.log('successfully deleted local image');
+                    }
+                });
+            }
+        } catch (e) {
+            console.log(e)
+        }
+
     },
     async getImageTables (req,res) {
         const CurrentGallery = req.params.id;

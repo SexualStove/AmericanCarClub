@@ -42,6 +42,7 @@ const upload = multer({
     storage: storage
 });
 module.exports = (app) => {
+    app.post('/removeGallery', GalleryController.deleteGallery);
 
     app.post('/', SendEmail.sendMail);
 
@@ -82,7 +83,8 @@ module.exports = (app) => {
             console.log("-" * 50);
             console.log(filename);
             if (err) {
-                console.log(err)
+                console.log(err);
+                res.status(500).json({status: 500, message: err});
             }
             let temppath = "./uploads/" + filename;
             imagemin([temppath],
@@ -124,6 +126,7 @@ module.exports = (app) => {
             console.log(filename);
             if (err) {
                 console.log(err)
+                res.status(500).json({status: 500, message: err});
             }
             let temppath = "./uploads/Thumbnails/" + filename;
             imagemin([temppath],
