@@ -9,7 +9,7 @@
     </div>
 
     <div v-if="CurrentGallery !== undefined">
-      <Gallery :GalleryVue="CurrentGallery" :LoadTable="true"></Gallery>
+      <Gallery :myUrl="myUrl" :GalleryVue="CurrentGallery" :LoadTable="true"></Gallery>
     </div>
     <div v-if="CurrentGallery === undefined">
       <div  v-on:click="ClickedGallery(GalleryChunk)" v-for="GalleryChunk in Galleries" :key="GalleryChunk.id">
@@ -17,7 +17,7 @@
           <div style="transition: 1s" class="BlogPost" v-if="GalleryChunk.Type < TotalBlogSize">
             <div class="GalleryIcon">
               <h1 class="GalleryTitle">{{GalleryChunk.Title}}</h1>
-              <img class="Thumbnail" :src="require(`../../../server/uploads/Thumbnails/${GalleryChunk.Location}`)" alt="None">
+              <img class="Thumbnail" :src="myUrl+'/uploads/Thumbnails/'+GalleryChunk.Location" :alt="myUrl+'/Thumbnails/'+GalleryChunk.Location">
             </div>
           </div>
         </transition>
@@ -44,7 +44,7 @@
 
             return {
 
-                myUrl: 'asdfb',
+                myUrl: 'http://138.68.18.100:8081',
                 blogContent:"",
                 blogs: '',
                 thumbnail: '',

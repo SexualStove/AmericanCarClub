@@ -10,11 +10,11 @@
                 </div>
                 <h1 id="Title">{{GalleryVue.Title}}</h1>
 
-                <img class="Thumbnail" :src="require(`../../../server/uploads/Thumbnails/${GalleryVue.Location}`)" alt="None">
+                <img class="Thumbnail" :src="myUrl+'/uploads/Thumbnails/'+GalleryVue.Location" alt="None">
             </div>
             <div style="height: 5vw"></div>
             <div v-for="Image in FilteredList" v-bind:key="Image.id" class="GalleryImages" >
-                <img  v-on:click="FullSize" class="ImageGallery" :src="require(`../../../server/uploads/${Image.Location}`)" :alt="Image.Location.toLocaleString()">
+                <img  v-on:click="FullSize" class="ImageGallery" :src="myUrl+'/uploads/'+Image.Location" :alt="Image.Location.toLocaleString()">
             </div>
             <div id="FullScreenImage" v-if="CurrentImage !== ''">
                 <img  v-on:click="CheckFull" class="ImageGallery active" :src="CurrentImage" :alt="None">
@@ -38,7 +38,6 @@
 
         data() {
             return {
-                myUrl: 'asdfb',
                 blogContent: "",
                 blogs: '',
                 thumbnail: '',
@@ -62,7 +61,7 @@
                 }
             }
         },
-        props: ['GalleryVue', 'LoadTable'],
+        props: ['GalleryVue', 'LoadTable', 'myUrl'],
         methods: {
             //"
             getThumbnail(pet) {

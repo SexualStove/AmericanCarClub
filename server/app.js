@@ -9,6 +9,7 @@ const app = express();
 app.use(morgan('combined'));
 app.use(bodyParser.json({limit: '50mb'}));
 app.use(cors());
+app.use('/uploads', express.static('uploads'));
 
 
 require('./routes')(app);
