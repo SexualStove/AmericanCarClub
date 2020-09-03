@@ -10,11 +10,11 @@
                 </div>
                 <h1 id="Title">{{GalleryVue.Title}}</h1>
 
-                <img class="Thumbnail" :src="require('../../../server/uploads/Thumbnails/'+GalleryVue.Location)" alt="None">
+                <img class="Thumbnail" :src="require(`../../../server/uploads/Thumbnails/${GalleryVue.Location}`)" alt="None">
             </div>
             <div style="height: 5vw"></div>
             <div v-for="Image in FilteredList" v-bind:key="Image.id" class="GalleryImages" >
-                <img  v-on:click="FullSize" class="ImageGallery" :src="require('../../../server/uploads/'+Image.Location)" :alt="Image.Location.toLocaleString()">
+                <img  v-on:click="FullSize" class="ImageGallery" :src="require(`../../../server/uploads/${Image.Location}`)" :alt="Image.Location.toLocaleString()">
             </div>
             <div id="FullScreenImage" v-if="CurrentImage !== ''">
                 <img  v-on:click="CheckFull" class="ImageGallery active" :src="CurrentImage" :alt="None">
@@ -65,6 +65,14 @@
         props: ['GalleryVue', 'LoadTable'],
         methods: {
             //"
+            getThumbnail(pet) {
+                var images = require.context('../../../server/uploads/Thumbnails', false, /\.jpeg$/);
+                return images('./'+pet);
+            },
+            getImage(pet) {
+                var images = require.context('../../../server/uploads', false, /\.jpeg$/);
+                return images('./'+pet);
+            },
             CheckFull() {
               if(this.CurrentImage !== '') {
                   this.CurrentImage = ''
@@ -87,10 +95,10 @@
         },
         async beforeMount() {
             if (this.LoadTable) {
-                //console.log(this.GalleryVue);
+                console.log(this.GalleryVue);
                 const images = await BlogController.getImageTables(this.GalleryVue.id);
                 this.ImageTable = images.data.Galleries;
-                //console.log(this.ImageTable);
+                console.log(this.ImageTable);
                 this.LoadTable = false;
             }
         },
@@ -215,6 +223,14 @@
         transform: translate(-50%, -50%);
         box-shadow:  0vw  0vw 100vw 100vw rgba(0,0,0,0.7);
     }
+    #BlackBackground {
+        width: 100vw;
+        height: 100vh;
+        top: 0;
+        position: fixed;
+        background-color: rgba(0, 0, 0, 0);
+        z-index: -1;
+    }
     img {
         max-height: 100%;
         max-width: 100%;
@@ -227,14 +243,7 @@
         width: initial;
         height: initial;
     }
-    #BlackBackground {
-        width: 100vw;
-        height: 100vh;
-        top: 0;
-        position: fixed;
-        background-color: rgba(0, 0, 0, 0);
-        z-index: -1;
-    }
+
 
 
 

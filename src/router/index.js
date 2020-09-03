@@ -1,6 +1,6 @@
 import Vue from 'vue'
 import HomePage from '@/components/Home/HomePage'
-import CreateGallery from '@/components/Create/CreateGallery'
+import CreateGallery from '@/components/Create/GalleryChoice'
 import CreateEvent from '@/components/Create/CreateEvent'
 import ContactUs from "../components/ContactUs/ContactUsForm";
 import Router from 'vue-router'

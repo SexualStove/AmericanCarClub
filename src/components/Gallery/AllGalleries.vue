@@ -17,7 +17,7 @@
           <div style="transition: 1s" class="BlogPost" v-if="GalleryChunk.Type < TotalBlogSize">
             <div class="GalleryIcon">
               <h1 class="GalleryTitle">{{GalleryChunk.Title}}</h1>
-              <img class="Thumbnail" :src="require('../../../server/uploads/Thumbnails/'+GalleryChunk.Location)" alt="None">
+              <img class="Thumbnail" :src="require(`../../../server/uploads/Thumbnails/${GalleryChunk.Location}`)" alt="None">
             </div>
           </div>
         </transition>
@@ -28,6 +28,9 @@
 </template>
 
 <script>
+  //getThumbnail(GalleryChunk.Location)
+  //require(`../../../server/uploads/Thumbnails/${GalleryChunk.Location}`)
+  //require('../../../server/uploads/Thumbnails/69512089_3032995033381543_1415671549188374528_o.jpg1599021318104.jpeg')
     import BlogController from '@/services/BlogServices'
     import Gallery from '../Gallery/Gallery'
     import {EventBus} from "../../App";
@@ -56,6 +59,12 @@
 
         methods: {
 
+            getThumbnail(pet) {
+                var IMG = require.context('../../../server/uploads/Thumbnails', false, /\.jpeg$/);
+                console.log(pet);
+                console.log(IMG);
+                return IMG('./'+pet+'.jpeg');
+            },
 
             ClickedGallery(GalleryChunk) {
                 //console.log(GalleryChunk);
@@ -121,7 +130,6 @@
                 //console.log("Added new chunk to list");
                 //console.log(FilterList);
                 this.TotalBlogSize = 2;
-
             }
         },
         beforeMount() {

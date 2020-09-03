@@ -1,26 +1,47 @@
 <template>
-  <div class="wrapper" style="padding: 20px;">
-    <div >
-
-      <button style="padding: 1vw" class="get-html" v-on:click="getHTML"> Save to Gallery! </button>
-
-          <br>
-          <div style="margin-top: 5vw; position: relative; width: 75%; margin-left: auto; margin-right: auto">
-             <div class="GalleryTitle" id="Title" contenteditable="true" style="margin-top: 10px;"> TITLE (Click here) </div>
-              <form id="uploadbanner" enctype="multipart/form-data" style="margin-top: 10px;">
-                <label class="GalleryTitle">Thumbnail <br></label><input id="thumbnail" ref="Thumbnail" name="myfile" type="file" required @change="onFileChange" accept="image/*"/>
-              </form>
-
-            <div id="ImageArea" v-cloak @drop.prevent="addFile" @dragover.prevent>
-              <h2>Files to Upload (Drag them over)</h2>
-              <ul>
-                <li v-for="file in files" v-bind:key="file.name">
-                  {{ file.name }} ({{ file.size | kb }}) <button @click="removeFile(file)" title="Remove">X</button>
-                </li>
-              </ul>
-            </div>
+  <div>
+    <div class="wrapper" style="padding: 20px;">
+      <transition name="fade">
+        <div id="Load" v-if="Uploading" class="active">
+          <div id="Circle"></div>
+          <a v-on:click="Uploading = false" href="#" class="close"></a>
+          <LoadArea style="margin: auto; transform: scale(1.2)"></LoadArea>
+          <div v-if="Uploaded">
+            Done!
           </div>
+          <div v-else>
+            Uploading Images
+          </div>
+          <div id="Numbers">
+            {{this.UploadedPics}} out of {{this.files.length}} Done.
+          </div>
+          <div v-if="Uploaded" id="Links" style="margin-top: 10px; color: lightskyblue; text-decoration: none">
+            <router-link to="/">Return Home</router-link>
+          </div>
+        </div>
+      </transition>
+      <div v-if="Uploading" id="BlackBackground"></div>
+      <div >
 
+        <button style="padding: 1vw" class="get-html" v-on:click="getHTML"> Save to Gallery! </button>
+
+            <br>
+            <div  id="CreateArea" style="margin-top: 2rem; position: relative; width: 75%; margin-left: auto; margin-right: auto">
+               <div class="GalleryTitle" id="Title" contenteditable="true"> TITLE (Click here) </div>
+                <form id="uploadbanner" enctype="multipart/form-data" style="margin-top: 10px;">
+                  <label class="GalleryTitle">Thumbnail <br></label><input id="thumbnail" ref="Thumbnail" name="myfile" type="file" required @change="onFileChange" accept="image/*"/>
+                </form>
+
+              <div  id="ImageArea" v-cloak @drop.prevent="addFile" @dragover.prevent>
+                <div v-if="files.length < 1" class="TitleInfo">Files to Upload (Drag them over)</div>
+                <ul style="margin: initial">
+                  <li style=" font-size: 2rem" v-for="file in files" v-bind:key="file.name">
+                    {{ file.name }} ({{ file.size | kb }}) <button @click="removeFile(file)" title="Remove">X</button>
+                  </li>
+                </ul>
+              </div>
+            </div>
+      </div>
     </div>
   </div>
 </template>
@@ -30,6 +51,7 @@
   // import JQuery from 'jquery'
 // <button class="get-html" v-on:click="getHTML"> Save to Blogsite! </button>
   import Vue from 'vue'
+  import LoadArea from "./LoadArea";
   Vue.filter('kb', function (num) {
       // jacked from: https://github.com/sindresorhus/pretty-bytes
       if (typeof num !== 'number' || isNaN(num)) {
@@ -57,22 +79,28 @@
   });
   export default {
     name: 'HelloWorld',
+      components: {LoadArea},
       data() {
       return {
           correct: true,
         password: "1234",
         Title: '',
         thumbnail:'',
+          CurrentGalleryID: 0,
           blogs: undefined,
           CurrentGalleryId: 0,
           dataImages: [],
           TotalPictures: 1,
           ImagesShowCase: [],
-          files:[]
+          files:[],
+          Uploaded: false,
+          Uploading: false,
+          UploadedPics: 0,
       }
 
     },
     mounted() {
+
     },
 
     beforeMount() {
@@ -157,11 +185,12 @@
                 reader.onload = onloadCallback;
                 reader.readAsDataURL(file)
             }
-            self.GalleryId = this.CurrentGalleryId;
-            self.ImageData = '';
+            this.CurrentGalleryID = this.CurrentGalleryId;
+            //self.ImageData = '';
             //let Untouched = this.files;
             console.log(this.$refs.thumbnail);
             console.log(this.files);
+            const self = this;
             readFile(blobData, async function (e) {
                 self.ImageData = e.target.result;
                 const BlobBoi = blobData;
@@ -177,16 +206,30 @@
                 }
                 try {
                     //await axios.post('/upload', formdata);
-                    await GalleryController.Upload(formdata);
-                    console.log("Sent one!");
+                    const response = await GalleryController.Upload(formdata);
+                    console.log("Sent Image!");
+                    console.log(response);
+
+
                 } catch (e) {
                     console.log(e);
                 }
                 //console.log(this.files[0]);
-                await GalleryController.createImageTable({
-                    GalleryLink: self.GalleryId,
+
+                const response = await GalleryController.createImageTable({
+                    GalleryLink: self.CurrentGalleryID,
                     Location: BlobName,
                 });
+                console.log("Sent ImageTable!");
+                console.log(response);
+                self.UploadedPics += 1;
+                console.log('this.UploadedPics = '+self.UploadedPics+' === '+self.files.length+' = Files');
+                if(self.UploadedPics == self.files.length) {
+                    console.log("i'm here ");
+                    console.log("------------------------------------------------");
+                    console.log("hellppp");
+                    self.Uploaded = true;
+                }
             });
         },
 
@@ -194,7 +237,7 @@
         try {
 
           this.Title = document.getElementById('Title').innerText;
-
+          this.Uploading = true;
           console.log("Pushing Gallery");
           const BlobBoi = self.data;
           let BlobName= BlobBoi.name + Date.now() + '.jpeg';
@@ -219,7 +262,8 @@
           for(i=0; i < this.files.length; i++) {
               await this.ReadImage(this.files[i]);
           }
-          alert("Gallery has been added!");
+
+          //alert("Gallery has been added!");
 
         } catch (err) {
           this.error = err;
@@ -240,10 +284,47 @@
 
 <!-- Add "scoped" attribute to limit CSS to this component only -->
 <style scoped>
+  #uploadbanner {
+    width: 100%;
+  }
+  #CreateArea {
+    display: flex;
+    align-content: center;
+    align-items: center;
+    justify-content: center;
+    flex-wrap: wrap;
+  }
 
+  #Load {
+    background: #333;
+    font-size: 2vw;
+    color: whitesmoke;
+    padding: 5%;
+    border-radius: 30%;
+  }
+  .active {
+    z-index: 3;
+    max-width: 90vw;
+    max-height: 100vh;
+  //width: 200%;
+    position: fixed;
+    left: 50%;
+    top: 50%;
+    transform: translate(-50%, -50%);
+    box-shadow:  0vw  0vw 100vw 100vw rgba(0,0,0,0.7);
+  }
+  #BlackBackground {
+    width: 100vw;
+    height: 100vh;
+    top: 0;
+    position: fixed;
+    background-color: rgba(0, 0, 0, 0);
+    z-index: -1;
+  }
   #userInput{
     height: 500px;
     width: 100%;
+
   }
   .command-bar {
     width: 100%;
@@ -351,13 +432,78 @@
     padding: 0.5vw;
   }
   #ImageArea {
-    padding: 5vw;
-    margin: 1vw;
+    padding: 2rem;
+    max-height: 30vh;
+    min-width: 40vw;
+    overflow-y: auto;
     border: 10px dotted lightskyblue  ;
   }
   .GalleryTitle {
     color: black;
     font-family: 'Cinzel', serif;
     font-size: 2.5vw;
+    //display: inline-block;
   }
+#Title {
+  border: #333 solid 2px;
+}
+
+  .fade-enter-active {
+    animation: bounce-in 1.5s;
+  }
+  .fade-leave-active {
+    animation: bounce-in 1.5s reverse;
+  }
+  @keyframes bounce-in {
+    0% {
+      transform: translate(-50%, -50%) scale(0);
+    }
+    50% {
+      transform: translate(-50%, -50%) scale(1.5);
+    }
+    100% {
+      transform: translate(-50%, -50%) scale(1);
+    }
+  }
+  #Circle {
+    position: absolute;
+    z-index: 2;
+    border-radius: 100%;
+    background-color: lightyellow;
+    right: 56px;
+    top: 47px;
+    width: 40px;
+    height: 40px;
+    opacity: 0.4;
+  }
+  .close {
+    position: absolute;
+    right: 60px;
+    top: 50px;
+    width: 32px;
+    height: 32px;
+    opacity: 0.6;
+    z-index: 99;
+  }
+  .close:hover {
+    opacity: 1;
+  }
+  .close:before, .close:after {
+    position: absolute;
+    left: 15px;
+    content: ' ';
+    height: 33px;
+    width: 2px;
+    background-color: #CCC;
+  }
+  .close:before {
+    transform: rotate(45deg);
+  }
+  .close:after {
+    transform: rotate(-45deg);
+  }
+  .TitleInfo {
+    font-size: 4rem;
+  }
+
 </style>

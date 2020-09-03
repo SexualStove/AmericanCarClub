@@ -62,7 +62,7 @@
             let self = this;
             this.$nextTick(function(){
                 window.addEventListener("scroll", function() {
-                    console.log(document.documentElement.scrollTop);
+                    //console.log(document.documentElement.scrollTop);
                     if (document.documentElement.scrollTop >= 550) {
                         if(self.Played === false) {
                             var LogoStringTimeline = new TimelineMax({});

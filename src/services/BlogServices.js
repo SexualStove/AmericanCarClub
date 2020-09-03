@@ -1,6 +1,10 @@
 import Api from '@/services/api'
 
 export default {
+    deleteGallery(data) {
+      return Api().post('/removeGallery', data)
+    },
+
     createBlog (data) {
         return Api().post('/create', data)
     },
