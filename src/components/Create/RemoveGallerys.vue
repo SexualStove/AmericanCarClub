@@ -15,7 +15,7 @@
     <div v-on:click="CheckDelete(GalleryChunk)"  v-for="GalleryChunk in Galleries" :key="GalleryChunk.id" class="GalleryIcon">
           <div class="Cross2"></div>
           <h1 class="GalleryTitle">{{GalleryChunk.Title}}</h1>
-          <img class="Thumbnail" :src="require(`../../../server/uploads/Thumbnails/${GalleryChunk.Location}`)" alt="None">
+          <img class="Thumbnail" :src="myUrl+'/uploads/Thumbnails/'+GalleryChunk.Location" alt="None">
       </div>
     </div>
     </div>
@@ -27,10 +27,12 @@
     //import {EventBus} from "../../App";
     //import JQuery from 'jquery';
     //let $ = JQuery;
+    import {BaseURL} from '@/services/api';
     export default {
         name: "RemoveGallerys",
         data() {
             return {
+                myUrl: BaseURL,
                 blogs: [],
                 Galleries: [],
                 GalleryID: '',

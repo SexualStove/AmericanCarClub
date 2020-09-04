@@ -17,7 +17,7 @@
           <div style="transition: 1s" class="BlogPost" v-if="GalleryChunk.Type < TotalBlogSize">
             <div class="GalleryIcon">
               <h1 class="GalleryTitle">{{GalleryChunk.Title}}</h1>
-              <img class="Thumbnail" :src="myUrl+'/uploads/Thumbnails/'+GalleryChunk.Location" :alt="myUrl+'/Thumbnails/'+GalleryChunk.Location">
+              <img style="color: whitesmoke" class="Thumbnail" :src="myUrl+'/uploads/Thumbnails/'+GalleryChunk.Location" :alt="myUrl+'/Thumbnails/'+GalleryChunk.Location">
             </div>
           </div>
         </transition>
@@ -31,8 +31,9 @@
   //getThumbnail(GalleryChunk.Location)
   //require(`../../../server/uploads/Thumbnails/${GalleryChunk.Location}`)
   //require('../../../server/uploads/Thumbnails/69512089_3032995033381543_1415671549188374528_o.jpg1599021318104.jpeg')
-    import BlogController from '@/services/BlogServices'
-    import Gallery from '../Gallery/Gallery'
+    import BlogController from '@/services/BlogServices';
+    import Gallery from '../Gallery/Gallery';
+    import {BaseURL} from '@/services/api';
     import {EventBus} from "../../App";
     import JQuery from 'jquery';
     let $ = JQuery;
@@ -44,7 +45,7 @@
 
             return {
 
-                myUrl: 'http://138.68.18.100:8081',
+                myUrl: BaseURL,
                 blogContent:"",
                 blogs: '',
                 thumbnail: '',
