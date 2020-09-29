@@ -10,7 +10,9 @@
   "author": "",
   "license": "ISC",
   "dependencies": {
+    "archiver": "^5.0.2",
     "body-parse": "^0.1.0",
+    "child_process": "^1.0.2",
     "cors": "^2.8.5",
     "eslint": "^6.8.0",
     "exphbs": "^1.2.0",
@@ -28,7 +30,8 @@
     "nodemon": "^2.0.2",
     "path": "^0.12.7",
     "sequelize": "^4.8.0",
-    "sqlite3": "^4.1.1"
+    "sqlite3": "^4.1.1",
+    "zip-stream": "^4.0.2"
   },
   "devDependencies": {
     "eslint-plugin-vue": "^6.0.1"

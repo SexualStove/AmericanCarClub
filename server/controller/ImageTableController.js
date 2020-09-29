@@ -38,6 +38,18 @@ module.exports = {
         }
 
     },
+    async getImageTablesDownload(id) {
+        try{
+            return await ImageTable.findAll({
+                   where: {
+                       GalleryLink: id
+                   }
+               }
+           )
+        } catch (e) {
+            console.log(e)
+        }
+    },
     async getImageTables (req,res) {
         const CurrentGallery = req.params.id;
         console.log(req.params);
