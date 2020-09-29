@@ -12,7 +12,9 @@
 
                 <img class="Thumbnail" :src="myUrl+'/uploads/Thumbnails/'+GalleryVue.Location" alt="None">
             </div>
-            <div style="height: 5vw"></div>
+            <div style="height: 5vw; display: flex; justify-content: center; align-content: center; margin: 2vw">
+                <button class="Button1" style="height: 70%; box-shadow: 0 8px 16px 0 rgba(0,0,0,0.8), 0 6px 20px 0 rgba(0,0,0,0.8);" v-on:click="Download">Download Gallery</button>
+            </div>
             <div v-for="Image in FilteredList" v-bind:key="Image.id" class="GalleryImages" >
                 <img  v-on:click="FullSize" class="ImageGallery" :src="myUrl+'/uploads/'+Image.Location" :alt="Image.Location.toLocaleString()">
             </div>
@@ -64,6 +66,10 @@
         props: ['GalleryVue', 'LoadTable', 'myUrl'],
         methods: {
             //"
+            async Download() {
+                window.open('https://inhousewebtest.site:8081/DownloadGallery1');
+            },
+
             getThumbnail(pet) {
                 var images = require.context('../../../server/uploads/Thumbnails', false, /\.jpeg$/);
                 return images('./'+pet);
@@ -144,6 +150,21 @@
 </script>
 
 <style scoped>
+    .Button1:hover {
+        background-color: #4CAF50;
+        color: white;
+        cursor: pointer;
+        transform: scale(1.1);
+    }
+    .Button1 {
+        font-size: 16px;
+        margin: 4px 2px;
+        transition-duration: 0.4s;
+        background-color: rgba(100,200,50,0.8);
+        border: initial;
+
+    }
+
     #ButtonBoi {
         position: absolute;
         left: -2%;

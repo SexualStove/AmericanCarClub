@@ -205,20 +205,20 @@
   right:2px;
 }
 .fade-enter-active {
-  animation: bounce-in 1.5s;
+  animation: bounce-in 0.75s ease;
 }
 .fade-leave-active {
-  animation: bounce-in 1.5s reverse;
+  animation: bounce-in 0.75s ease reverse;
 }
 @keyframes bounce-in {
   0% {
-    transform: translate(-50%, -50%) scale(0);
+    transform: translate(-50%, -50%) scale(0) translateZ(1px);
   }
   50% {
-    transform: translate(-50%, -50%) scale(1.5);
+    transform: translate(-50%, -50%) scale(1.5) translateZ(0px);
   }
   100% {
-    transform: translate(-50%, -50%) scale(1);
+    transform: translate(-50%, -50%) scale(1) translateZ(-1px);
   }
 }
 #Load {

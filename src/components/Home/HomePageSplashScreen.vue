@@ -22,8 +22,6 @@
         <span>&#8226;</span>
         <a id="ContactUs" class="NavItem"> Contact Us </a>
         <span>&#8226;</span>
-        <a id="Events" class="NavItem"> Events </a>
-        <span>&#8226;</span>
         <a id="Gallery" class="NavItem"> Gallery </a>
       </h3>
       </div>

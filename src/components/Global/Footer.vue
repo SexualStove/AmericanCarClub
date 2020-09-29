@@ -1,35 +1,26 @@
 <template>
   <!-- Site footer -->
-  <footer class="site-footer">
-    <div class="container">
-      <div class="row">
-        <div class="col-sm-12 col-md-6">
-          <h6>About</h6>
-          <p class="text-justify">Be Paid Limited is a professional Dunedin company with a big reputation for getting late payers to cough up. We have been operating since 2001 so you benefit from loads of our experience. Whether an invoice is a week overdue or has been sitting in your debtors' file for a year, we'll do our best to get it paid for you.</p>
-        </div>
-
-        <div class="col-xs-6 col-md-3">
-          <h6>Categories</h6>
-          <ul class="footer-links">
-            <li v-on:mousedown="ChangeService(1)"><router-link to="/Services/ServiceArea"><a>Debt Collection</a></router-link></li>
-            <li v-on:mousedown="ChangeService(0)"><router-link to="/Services/ServiceArea"><a>Ledger Management</a></router-link></li>
-            <li v-on:mousedown="ChangeService(2)"><router-link to="/Services/ServiceArea"><a>Credit Checking</a></router-link></li>
-            <li v-on:mousedown="ChangeService(9)"><router-link to="/Services/ServiceArea"><a>Background Check</a></router-link></li>
-            <li v-on:mousedown="ChangeService(11)"><router-link to="/Services/ServiceArea"><a>Document Serving</a></router-link></li>
-            <li v-on:mousedown="ChangeService(10)"><router-link to="/Services/ServiceArea"><a>Investigations</a></router-link></li>
-          </ul>
-        </div>
-
-        <div class="col-xs-6 col-md-3">
-          <h6>Quick Links</h6>
-          <ul class="footer-links">
-            <li><router-link to="/Services"><a>Service Icons</a></router-link></li>
-            <li><router-link to="/Services/ServiceArea"><a>Service Area</a></router-link></li>
-            <li><router-link to="/DebtLodgement"><a>Debt Lodgement</a></router-link></li>
-          </ul>
-        </div>
+  <footer class="site-footer" style="position: relative; box-shadow: rgba(0,0,0,0.5) 5px 5px inset">
+    <div id="Stars2" >
+      <div id="LeftSide" style="position: absolute; top: 0; transform: translateY(-2vh) scale(0.9)">
+        <i class="star"></i>
+        <i class="star"></i>
+        <i class="star"></i>
       </div>
-      <hr>
+      <div id="RightSide" style="position: absolute; top: 0; transform: translateY(-2vh) scale(0.9); right: 0;">
+        <i class="star"></i>
+        <i class="star"></i>
+        <i class="star"></i>
+      </div>
+    </div>
+    <div class="container">
+      <h3 id="FooterNav">
+        <a style="color: goldenrod;" class="FN" id="AboutUs2" > About Us </a>
+        <span>&#8226;</span>
+        <a style="color: goldenrod;" class="FN" id="ContactUs2" > Contact Us </a>
+        <span>&#8226;</span>
+        <a style="color: goldenrod;" class="FN" id="Gallery2"> Gallery </a>
+      </h3>
     </div>
     <div class="container">
       <div class="row">
@@ -45,7 +36,8 @@
 </template>
 
 <script>
-
+    import JQuery from 'jquery';
+    let $ = JQuery;
     import {EventBus} from "../../App";
     export default {
         name: "HomeFooter",
@@ -54,18 +46,38 @@
                 this.$cookie.set('Service', Int, {expires: '10m'});
                 EventBus.$emit('Service', Int);
             }
+        },
+        mounted() {
+            $('#AboutUs2').click(function () {
+                EventBus.$emit('Page', 1);
+                // this.ServiceClick();
+            });
+            $('#ContactUs2').click(function () {
+                EventBus.$emit('Page', 2);
+                //this.ServiceClick();
+            });
+            $('#Gallery2').click(function () {
+                EventBus.$emit('Page', 4);
+                //this.ServiceClick();
+            });
         }
     }
 </script>
 
 <style scoped>
+  .FN:hover {
+    cursor: pointer;
+  }
+  #FooterNav {
+    color: goldenrod;
+  }
   .site-footer
   {
 
-    background-image: url("../../assets/images/Patterns/dot-grid-DarkBlue.png");
+    background-color: #002868;
     background-size: 15%;
-
-    padding:45px 0 20px;
+    box-shadow: rgba(0, 0, 0, 0.7) 0px 8px 6px -6px ;
+    padding:10px 0 20px;
     font-size:18px;
     line-height:24px;
     color:#737373;
@@ -153,6 +165,37 @@
     {
       text-align:center
     }
+  }
+
+  .star {
+    position: relative;
+    display: inline-block;
+    width: 0;
+    height: 0;
+    margin: 5vw 5vw 5vw 5vw;
+    border-right: 0.3em solid transparent;
+    border-bottom: 0.7em solid white;
+    border-left: 0.3em solid transparent;
+    /* Controlls the size of the stars. */
+    font-size: 3vw;
+    opacity: 0.9;
+    transform: translateY(-4vw);
+  }
+  .star:before, .star:after {
+    content: '';
+    display: block;
+    width: 0;
+    height: 0;
+    position: absolute;
+    top: 0.6em;
+    left: -1em;
+    border-right: 1em solid transparent;
+    border-bottom: 0.7em solid white;
+    border-left: 1em solid transparent;
+    transform: rotate(-35deg);
+  }
+  .star:after {
+    transform: rotate(35deg);
   }
 
   @media (max-width:767px)

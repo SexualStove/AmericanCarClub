@@ -18,6 +18,7 @@
         <AllGalleries v-if="CurrentPage === 4"  style="margin-top: 6%"></AllGalleries>
       </transition>
     </div>
+    <HomeFooter v-if="CurrentPage > 0"></HomeFooter>
 
   </div>
 </template>
@@ -33,11 +34,12 @@
 
     import Events from "../Events/Events";
     import JQuery from 'jquery';
+    import HomeFooter from "../Global/Footer";
     let $ = JQuery;
     //style="background: linear-gradient(to left,#A4B0F5, #FFFCF2); width: 100vw"
     export default {
         name: "HomePage",
-        components: {Events, AboutUs, HomePageSplashScreen, AllGalleries, ContactUs},
+        components: {HomeFooter, Events, AboutUs, HomePageSplashScreen, AllGalleries, ContactUs},
         data() {
             return {
                 CurrentPage: 0,

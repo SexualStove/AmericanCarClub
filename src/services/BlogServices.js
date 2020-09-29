@@ -34,6 +34,9 @@ export default {
     UploadThumbnail(formdata) {
         Api().post('/UploadThumbnail', formdata)
     },
+    downloadGallery(id) {
+        return Api().get('/DownloadGallery'+id)
+    },
     sendMail () {
         return Api().post('/')
     }
