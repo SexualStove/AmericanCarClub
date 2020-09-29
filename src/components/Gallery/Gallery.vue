@@ -67,7 +67,7 @@
         methods: {
             //"
             async Download() {
-                window.open('https://inhousewebtest.site:8081/DownloadGallery1');
+                window.open('https://inhousewebtest.site:8081/DownloadGallery'+this.GalleryVue.id);
             },
 
             getThumbnail(pet) {
