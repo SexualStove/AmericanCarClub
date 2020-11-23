@@ -116,18 +116,21 @@
   }
 
   .RedStripe {
-    background-color: #BF0A30;
+    background-image: url("../../assets/images/FlagRed.png");
+    background-size: 20%;
     width: 0vw;
     height: 16.66%;
   }
   .WhiteStripe {
-    background-color: #FFFFFF;
+    background-image: url("../../assets/images/FlagWhite.png");
+    background-size: initial;
     width: 0vw;
     height: 16.66%;
   }
   #BlueStripe {
     justify-content: center;
-    background-color: #002868;
+    background-image: url("../../assets/images/FlagBlue.png");
+    background-size: 20%;
     width: 0vw;
     height: 100%;
   }

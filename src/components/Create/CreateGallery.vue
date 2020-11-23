@@ -27,7 +27,8 @@
 
             <br>
             <div  id="CreateArea" style="margin-top: 2rem; position: relative; width: 75%; margin-left: auto; margin-right: auto">
-               <div class="GalleryTitle" id="Title" contenteditable="true"> TITLE (Click here) </div>
+               <div class="GalleryTitle" id="Title" style="width: 40vw" contenteditable="true"> TITLE (Click here) </div>
+              <div><textarea v-model="Description" style="width: 40vw" class="input" name="Description" type="text" placeholder=" Description"></textarea></div>
                 <form id="uploadbanner" enctype="multipart/form-data" style="margin-top: 10px;">
                   <label class="GalleryTitle">Thumbnail <br></label><input id="thumbnail" ref="Thumbnail" name="myfile" type="file" required @change="onFileChange" accept="image/*"/>
                 </form>
@@ -82,6 +83,7 @@
       components: {LoadArea},
       data() {
       return {
+          Description: '',
           correct: true,
         password: "1234",
         Title: '',
@@ -248,9 +250,11 @@
           formdata.append('file', newFile);
           const response = await GalleryController.createGallery({
             Title: this.Title,
-            Location: BlobName
+            Location: BlobName,
+            Description: this.Description
           });
-            console.log(response.Date);
+            console.log(response);
+            this.CurrentGalleryID = response.data.id;
             try {
                 //await axios.post('/upload', formdata);
                 await GalleryController.UploadThumbnail(formdata);

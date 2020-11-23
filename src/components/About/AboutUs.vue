@@ -1,6 +1,5 @@
 <template>
   <div id="AboutUsPage">
-    <img style="" src="../../assets/images/AboutUs.jpg.png" alt="None">
     <div id="Content">
       <div id="ContentWords">
         <h1 id="AboutUsTitle">
@@ -46,7 +45,7 @@
             this.$nextTick(function(){
                 window.addEventListener("scroll", function() {
                     //console.log(document.documentElement.scrollTop);
-                    if (document.documentElement.scrollTop >= 1500) {
+                    if (document.documentElement.scrollTop >= 500) {
                         this.AboutUsContent = true;
                         //console.log(this.AboutUsContent)
                         var LogoStringTimeline = new TimelineMax({play: true});
@@ -70,10 +69,12 @@
   }
 
 #AboutUsPage {
+  padding-top: 2%;
   padding-bottom: 2%;
   width: 100vw;
   text-align: left;
-  background-color: #30011E;
+  background-image: url("../../assets/images/BackgroundB.png");
+  background-size: 20%;
 
 }
   #AboutUsContent {

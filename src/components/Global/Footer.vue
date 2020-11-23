@@ -74,8 +74,9 @@
   .site-footer
   {
 
-    background-color: #002868;
-    background-size: 15%;
+    background-image: url("../../assets/images/FlagBlue.png");
+    background-size: 20%;
+
     box-shadow: rgba(0, 0, 0, 0.7) 0px 8px 6px -6px ;
     padding:10px 0 20px;
     font-size:18px;

@@ -7,6 +7,9 @@ module.exports = (sequelize, DataTypes) =>{
         Location: {
             type: DataTypes.STRING
         },
+        Description: {
+            type: DataTypes.STRING
+        }
 
 
     });

@@ -2,7 +2,7 @@
   <div >
     <home-page-splash-screen ></home-page-splash-screen>
     <transition name="slide-fade-right" v-bind:key="CurrentPage">
-      <img v-if="CurrentPage > 0" id="Divider" src="../../assets/images/TitleDivider.png" alt="None">
+      <img v-if="CurrentPage > 0" id="Divider" src="../../assets/images/TitleDividerFlag.png" alt="None">
     </transition>
     <div id="Content">
       <transition name="slide-fade-right" v-bind:key="CurrentPage">
@@ -15,7 +15,8 @@
         <Events v-if="CurrentPage === 3" style="margin-top: 6%"></Events>
       </transition>
       <transition name="slide-fade-right" v-bind:key="CurrentPage">
-        <AllGalleries v-if="CurrentPage === 4"  style="margin-top: 6%"></AllGalleries>
+        <AllGalleriesModern v-if="CurrentPage === 4"  style="margin-top: 6%"></AllGalleriesModern>
+        <AllGalleries v-if="CurrentPage === 5"></AllGalleries>
       </transition>
     </div>
     <HomeFooter v-if="CurrentPage > 0"></HomeFooter>
@@ -35,11 +36,12 @@
     import Events from "../Events/Events";
     import JQuery from 'jquery';
     import HomeFooter from "../Global/Footer";
+    import AllGalleriesModern from "../Gallery/AllGalleriesModern";
     let $ = JQuery;
     //style="background: linear-gradient(to left,#A4B0F5, #FFFCF2); width: 100vw"
     export default {
         name: "HomePage",
-        components: {HomeFooter, Events, AboutUs, HomePageSplashScreen, AllGalleries, ContactUs},
+        components: {AllGalleriesModern, HomeFooter, Events, AboutUs, HomePageSplashScreen, AllGalleries, ContactUs},
         data() {
             return {
                 CurrentPage: 0,
@@ -80,6 +82,8 @@
   overflow-x: hidden;
   max-width: 100%;
   background-color: #30011E;
+  background-image: url("../../assets/images/BackgroundB.png");
+  background-size: 10%;
   z-index: -1;
 }
 .fade-enter-active, .fade-leave-active {

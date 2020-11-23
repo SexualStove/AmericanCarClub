@@ -85,7 +85,8 @@
 
     #ContactUsPage{
 
-        background-color: #30011E;
+        background-image: url("../../assets/images/BackgroundB.png");
+        background-size: 20%;
         display: grid;
         grid-template-columns: 10% 10% 10% 10% 10% 10% 10% 10% 10% 10%;
         grid-template-rows: auto;

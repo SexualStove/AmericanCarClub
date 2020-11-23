@@ -162,7 +162,6 @@
         transition-duration: 0.4s;
         background-color: rgba(100,200,50,0.8);
         border: initial;
-
     }
 
     #ButtonBoi {

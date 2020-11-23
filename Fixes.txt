@@ -1,0 +1,8 @@
+Jquery autoscroll via pixels cause
+Set cookie back on pressing gallery.
+Only on click outside of image from zoom in.
+Click on care image.
+Main Image of gallery acts as a back button as well.
+Footer lmao.
+Add a description on Gallery.
+Download whole gallery.
