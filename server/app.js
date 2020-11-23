@@ -7,7 +7,7 @@ const {sequelize} = require('./models');
 const config = require('./config/config');
 const exphbs = require('express-handlebars');
 //!!!CHANGE!!!
-const Local = true;
+const Local = false;
 
 const app = express();
 app.use(morgan('combined'));
